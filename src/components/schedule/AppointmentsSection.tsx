@@ -55,7 +55,7 @@ export function AppointmentsSection({
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="petName">Nome do Pet</Label>
+                <Label htmlFor="petName">Nome do Cliente</Label>
                 <Input id="petName" value={formData.petName} onChange={e => setFormData({
                 ...formData,
                 petName: e.target.value
@@ -63,7 +63,7 @@ export function AppointmentsSection({
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="ownerName">Nome do Proprietário</Label>
+                <Label htmlFor="ownerName">Nome do Responsável</Label>
                 <Input id="ownerName" value={formData.ownerName} onChange={e => setFormData({
                 ...formData,
                 ownerName: e.target.value
@@ -97,12 +97,8 @@ export function AppointmentsSection({
                 ...formData,
                 service: e.target.value
               })} required>
-                  <option value="Banho e Tosa">Banho e Tosa</option>
-                  <option value="Banho">Banho</option>
-                  <option value="Tosa">Tosa</option>
-                  <option value="Consulta Veterinária">Consulta Veterinária</option>
-                  <option value="Vacinação">Vacinação</option>
-                  <option value="Exames de Rotina">Exames de Rotina</option>
+                  <option value="Mentoria CI">Mentoria CI</option>
+                  <option value="Venda CI">Venda CI</option>
                 </select>
               </div>
               
@@ -149,7 +145,7 @@ export function AppointmentsSection({
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="edit-petName">Nome do Pet</Label>
+                <Label htmlFor="edit-petName">Nome do Cliente</Label>
                 <Input id="edit-petName" value={formData.petName} onChange={e => setFormData({
                 ...formData,
                 petName: e.target.value
@@ -157,7 +153,7 @@ export function AppointmentsSection({
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="edit-ownerName">Nome do Proprietário</Label>
+                <Label htmlFor="edit-ownerName">Nome do Responsável</Label>
                 <Input id="edit-ownerName" value={formData.ownerName} onChange={e => setFormData({
                 ...formData,
                 ownerName: e.target.value
@@ -191,12 +187,8 @@ export function AppointmentsSection({
                 ...formData,
                 service: e.target.value
               })} required>
-                  <option value="Banho e Tosa">Banho e Tosa</option>
-                  <option value="Banho">Banho</option>
-                  <option value="Tosa">Tosa</option>
-                  <option value="Consulta Veterinária">Consulta Veterinária</option>
-                  <option value="Vacinação">Vacinação</option>
-                  <option value="Exames de Rotina">Exames de Rotina</option>
+                  <option value="Mentoria CI">Mentoria CI</option>
+                  <option value="Venda CI">Venda CI</option>
                 </select>
               </div>
               
@@ -242,8 +234,8 @@ export function AppointmentsSection({
           
           {currentAppointment && (
             <div className="py-4">
-              <p><strong>Pet:</strong> {currentAppointment.petName}</p>
-              <p><strong>Proprietário:</strong> {currentAppointment.ownerName}</p>
+              <p><strong>Cliente:</strong> {currentAppointment.petName}</p>
+              <p><strong>Responsável:</strong> {currentAppointment.ownerName}</p>
               <p><strong>Data/Hora:</strong> {format(currentAppointment.date, "dd/MM/yyyy 'às' HH:mm", {
                 locale: pt
               })}</p>

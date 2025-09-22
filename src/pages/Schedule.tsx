@@ -20,71 +20,71 @@ import { AgendaTypeSelector } from '@/components/schedule/AgendaTypeSelector';
 const mockAppointments: Appointment[] = [
   {
     id: 1,
-    petName: 'Max',
+    petName: 'Cliente A',
     ownerName: 'João Silva',
     phone: '(11) 98765-4321',
     date: new Date(2023, 5, 15, 10, 30),
-    service: 'Banho e Tosa',
+    service: 'Mentoria CI',
     status: 'confirmado',
-    notes: 'Trazer a coleira nova'
+    notes: 'Primeira sessão de mentoria'
   },
   {
     id: 2,
-    petName: 'Luna',
+    petName: 'Cliente B',
     ownerName: 'Maria Oliveira',
     phone: '(11) 91234-5678',
     date: new Date(2023, 5, 15, 14, 0),
-    service: 'Consulta Veterinária',
+    service: 'Venda CI',
     status: 'pendente',
-    notes: 'Verificar vacinas'
+    notes: 'Revisar estratégias de venda'
   },
   {
     id: 3,
-    petName: 'Toby',
+    petName: 'Cliente C',
     ownerName: 'Pedro Santos',
     phone: '(11) 99876-5432',
     date: new Date(2023, 5, 16, 9, 0),
-    service: 'Exames de Rotina',
+    service: 'Mentoria CI',
     status: 'confirmado',
     notes: ''
   },
   {
     id: 4,
-    petName: 'Bella',
+    petName: 'Cliente D',
     ownerName: 'Ana Costa',
     phone: '(11) 98765-1234',
     date: addDays(new Date(), 1),
-    service: 'Banho e Tosa',
+    service: 'Venda CI',
     status: 'confirmado',
-    notes: 'Pet alérgico a certos produtos'
+    notes: 'Apresentação de produtos'
   },
   {
     id: 5,
-    petName: 'Thor',
+    petName: 'Cliente E',
     ownerName: 'Lucas Ferreira',
     phone: '(11) 97654-3210',
     date: addDays(new Date(), 1),
-    service: 'Consulta Veterinária',
+    service: 'Mentoria CI',
     status: 'pendente',
     notes: ''
   },
   {
     id: 6,
-    petName: 'Nina',
+    petName: 'Cliente F',
     ownerName: 'Carla Souza',
     phone: '(11) 98888-7777',
     date: addHours(new Date(), 3),
-    service: 'Banho',
+    service: 'Venda CI',
     status: 'confirmado',
     notes: 'Chegará 15 minutos antes'
   },
   {
     id: 7,
-    petName: 'Rex',
+    petName: 'Cliente G',
     ownerName: 'Roberto Almeida',
     phone: '(11) 99999-8888',
     date: addMinutes(new Date(), 90),
-    service: 'Vacinação',
+    service: 'Mentoria CI',
     status: 'confirmado',
     notes: ''
   }
@@ -122,7 +122,7 @@ const Schedule = () => {
     ownerName: '',
     phone: '',
     date: new Date(),
-    service: 'Banho e Tosa',
+    service: 'Mentoria CI',
     status: 'pendente',
     notes: ''
   });
@@ -159,10 +159,10 @@ const Schedule = () => {
   }).filter(appointment => {
     if (!searchTerm) return true;
     const searchLower = searchTerm.toLowerCase();
-    return appointment.petName.toLowerCase().includes(searchLower) || 
-           appointment.ownerName.toLowerCase().includes(searchLower) || 
-           appointment.phone.includes(searchTerm) || 
-           appointment.service.toLowerCase().includes(searchLower);
+                  return appointment.petName.toLowerCase().includes(searchLower) || 
+                         appointment.ownerName.toLowerCase().includes(searchLower) || 
+                         appointment.phone.includes(searchTerm) || 
+                         appointment.service.toLowerCase().includes(searchLower);
   }).sort((a, b) => a.date.getTime() - b.date.getTime());
   
   const filteredEvents = events.filter(event => {
@@ -206,7 +206,7 @@ const Schedule = () => {
       ownerName: '',
       phone: '',
       date: new Date(),
-      service: 'Banho e Tosa',
+      service: 'Mentoria CI',
       status: 'pendente',
       notes: ''
     });

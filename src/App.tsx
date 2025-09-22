@@ -16,35 +16,68 @@ import NotFound from "./pages/NotFound";
 import ConfigurationManager from "./pages/ConfigurationManager";
 import { AuthProvider } from "./context/AuthContext";
 import { ThemeProvider } from "./context/ThemeContext";
+import { useEffect } from "react";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <ThemeProvider defaultTheme="light">
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <AuthProvider>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/metrics" element={<MetricsDashboard />} />
-              <Route path="/chats" element={<ChatsDashboard />} />
-              <Route path="/knowledge" element={<KnowledgeManager />} />
-              <Route path="/clients" element={<ClientsDashboard />} />
-              <Route path="/evolution" element={<Evolution />} />
-              <Route path="/schedule" element={<Schedule />} />
-              <Route path="/configuration" element={<ConfigurationManager />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </AuthProvider>
-        </BrowserRouter>
-      </TooltipProvider>
-    </ThemeProvider>
-  </QueryClientProvider>
-);
+// Migrate old domain URLs in localStorage
+const migrateLocalStorageUrls = () => {
+  try {
+    const savedEndpoints = localStorage.getItem('webhookEndpoints');
+    if (savedEndpoints) {
+      const endpoints = JSON.parse(savedEndpoints);
+      let updated = false;
+      
+      // Update all endpoints that use the old domain
+      Object.keys(endpoints).forEach(key => {
+        if (endpoints[key] && endpoints[key].includes('n8nlabz.com.br')) {
+          endpoints[key] = endpoints[key].replace('n8nlabz.com.br', 'comunidadeimobiliaria.com.br');
+          updated = true;
+        }
+      });
+      
+      if (updated) {
+        localStorage.setItem('webhookEndpoints', JSON.stringify(endpoints));
+        console.log('Updated webhook endpoints to new domain');
+      }
+    }
+  } catch (error) {
+    console.error('Error migrating localStorage URLs:', error);
+  }
+};
+
+const App = () => {
+  useEffect(() => {
+    migrateLocalStorageUrls();
+  }, []);
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider defaultTheme="light">
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <AuthProvider>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/metrics" element={<MetricsDashboard />} />
+                <Route path="/chats" element={<ChatsDashboard />} />
+                <Route path="/knowledge" element={<KnowledgeManager />} />
+                <Route path="/clients" element={<ClientsDashboard />} />
+                <Route path="/evolution" element={<Evolution />} />
+                <Route path="/schedule" element={<Schedule />} />
+                <Route path="/configuration" element={<ConfigurationManager />} />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </AuthProvider>
+          </BrowserRouter>
+        </TooltipProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;

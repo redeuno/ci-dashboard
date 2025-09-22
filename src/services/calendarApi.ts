@@ -48,8 +48,8 @@ export async function fetchCalendarEvents(agendaType: AgendaType = 'mentoria-ci'
     
     // If a date is selected, add query parameters for start and end dates
     if (selectedDate) {
-      const startDateTime = format(selectedDate, "yyyy-MM-dd'T'00:00:00.000xxx");
-      const endDateTime = format(endOfDay(selectedDate), "yyyy-MM-dd'T'23:59:59.999xxx");
+      const startDateTime = format(selectedDate, "yyyy-MM-dd'T'00:00:00.000-03:00");
+      const endDateTime = format(endOfDay(selectedDate), "yyyy-MM-dd'T'23:59:59.999-03:00");
       
       url += `?start=${encodeURIComponent(startDateTime)}&end=${encodeURIComponent(endDateTime)}`;
       console.log(`Fetching ${agendaType} events with date range:`, { startDateTime, endDateTime });
@@ -76,8 +76,8 @@ export async function refreshCalendarEventsPost(agendaType: AgendaType = 'mentor
     const payload: any = {};
     
     if (selectedDate) {
-      const startDateTime = format(selectedDate, "yyyy-MM-dd'T'00:00:00.000xxx");
-      const endDateTime = format(endOfDay(selectedDate), "yyyy-MM-dd'T'23:59:59.999xxx");
+      const startDateTime = format(selectedDate, "yyyy-MM-dd'T'00:00:00.000-03:00");
+      const endDateTime = format(endOfDay(selectedDate), "yyyy-MM-dd'T'23:59:59.999-03:00");
       
       payload.start = startDateTime;
       payload.end = endDateTime;

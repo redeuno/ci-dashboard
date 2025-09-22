@@ -28,9 +28,18 @@ export function useCalendarEvents(agendaType: AgendaType = 'mentoria-ci', select
       console.error(`Error in useCalendarEvents for ${agendaType}:`, err);
       setError(err instanceof Error ? err : new Error('Unknown error occurred'));
       
-      // Only show the toast if we don't already have events loaded
+      // If GET fails and we have no events, try POST refresh as fallback
       if (events.length === 0) {
-        toast.error("Não conseguimos atualizar os eventos, tentando novamente em breve...");
+        try {
+          console.log(`GET failed for ${agendaType}, trying POST refresh...`);
+          const refreshedEvents = await refreshCalendarEventsPost(agendaType, selectedDate);
+          setEvents(refreshedEvents);
+          setLastUpdated(new Date());
+          setError(null);
+        } catch (refreshErr) {
+          console.error(`POST refresh also failed for ${agendaType}:`, refreshErr);
+          toast.error("Não conseguimos atualizar os eventos, tentando novamente em breve...");
+        }
       }
     } finally {
       setIsLoading(false);

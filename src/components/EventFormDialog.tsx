@@ -131,7 +131,7 @@ export function EventFormDialog({
               id="summary"
               value={formData.summary}
               onChange={(e) => handleChange('summary', e.target.value)}
-              placeholder="Ex: Banho e Tosa - Max"
+              placeholder="Ex: Mentoria CI - Cliente"
               className={errors.summary ? "border-destructive" : ""}
             />
             {errors.summary && <p className="text-sm text-destructive">{errors.summary}</p>}
@@ -143,7 +143,7 @@ export function EventFormDialog({
               id="description"
               value={formData.description}
               onChange={(e) => handleChange('description', e.target.value)}
-              placeholder="Detalhes do atendimento..."
+              placeholder="Detalhes da sessão..."
               className="min-h-[80px]"
             />
           </div>
