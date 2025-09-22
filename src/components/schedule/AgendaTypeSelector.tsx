@@ -2,7 +2,7 @@
 import React from 'react';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AgendaType } from '@/hooks/useAgendaType';
-import { Bath, Stethoscope } from 'lucide-react';
+import { GraduationCap, TrendingUp } from 'lucide-react';
 
 interface AgendaTypeSelectorProps {
   selectedType: AgendaType;
@@ -18,13 +18,13 @@ export function AgendaTypeSelector({ selectedType, onTypeChange }: AgendaTypeSel
       value={selectedType}
     >
       <TabsList className="grid grid-cols-2 w-full">
-        <TabsTrigger value="banho" className="flex items-center gap-2">
-          <Bath className="h-4 w-4" />
-          <span className="hidden sm:inline">Banho</span>
+        <TabsTrigger value="mentoria-ci" className="flex items-center gap-2">
+          <GraduationCap className="h-4 w-4" />
+          <span className="hidden sm:inline">Mentoria CI</span>
         </TabsTrigger>
-        <TabsTrigger value="vet" className="flex items-center gap-2">
-          <Stethoscope className="h-4 w-4" />
-          <span className="hidden sm:inline">Veterinário</span>
+        <TabsTrigger value="venda-ci" className="flex items-center gap-2">
+          <TrendingUp className="h-4 w-4" />
+          <span className="hidden sm:inline">Venda CI</span>
         </TabsTrigger>
       </TabsList>
     </Tabs>

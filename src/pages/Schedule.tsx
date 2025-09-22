@@ -285,10 +285,10 @@ const Schedule = () => {
 
   const getAgendaTitle = () => {
     switch (agendaType) {
-      case 'banho':
-        return 'Agenda de Banho e Tosa';
-      case 'vet':
-        return 'Agenda de Consultas Veterinárias';
+      case 'mentoria-ci':
+        return 'Agenda de Mentoria CI';
+      case 'venda-ci':
+        return 'Agenda de Venda CI';
       default:
         return 'Agenda Completa';
     }

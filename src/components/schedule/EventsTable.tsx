@@ -8,7 +8,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { 
   Edit, Trash2, Clock, Mail, LinkIcon, LoaderCircle, 
-  Bath, Stethoscope, Calendar
+  GraduationCap, TrendingUp, Calendar
 } from 'lucide-react';
 import { CalendarEvent } from '@/types/calendar';
 import { AgendaType } from '@/hooks/useAgendaType';
@@ -28,7 +28,7 @@ export function EventsTable({
   onEditEvent, 
   onDeleteEvent, 
   onOpenEventLink,
-  agendaType = 'banho'
+  agendaType = 'mentoria-ci'
 }: EventsTableProps) {
   
   const getStatusColor = (status: string, responseStatus?: string) => {
@@ -76,10 +76,10 @@ export function EventsTable({
 
   const getAgendaTypeIcon = () => {
     switch (agendaType) {
-      case 'banho':
-        return <Bath className="h-4 w-4 text-blue-500" />;
-      case 'vet':
-        return <Stethoscope className="h-4 w-4 text-green-500" />;
+      case 'mentoria-ci':
+        return <GraduationCap className="h-4 w-4 text-blue-500" />;
+      case 'venda-ci':
+        return <TrendingUp className="h-4 w-4 text-green-500" />;
       default:
         return <Calendar className="h-4 w-4 text-purple-500" />;
     }

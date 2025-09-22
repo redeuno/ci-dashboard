@@ -9,7 +9,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { AlertCircle, Search, LoaderCircle, Bath, Stethoscope, Calendar } from 'lucide-react';
+import { AlertCircle, Search, LoaderCircle, GraduationCap, TrendingUp, Calendar } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { EventsTable } from './EventsTable';
 
@@ -44,14 +44,14 @@ export function EventsCard({
   onEditEvent,
   onDeleteEvent,
   onOpenEventLink,
-  agendaType = 'banho'
+  agendaType = 'mentoria-ci'
 }: EventsCardProps) {
   const getAgendaIcon = () => {
     switch (agendaType) {
-      case 'banho':
-        return <Bath className="h-5 w-5 text-blue-500" />;
-      case 'vet':
-        return <Stethoscope className="h-5 w-5 text-green-500" />;
+      case 'mentoria-ci':
+        return <GraduationCap className="h-5 w-5 text-blue-500" />;
+      case 'venda-ci':
+        return <TrendingUp className="h-5 w-5 text-green-500" />;
       default:
         return <Calendar className="h-5 w-5 text-purple-500" />;
     }
@@ -59,10 +59,10 @@ export function EventsCard({
 
   const getAgendaTitle = () => {
   switch (agendaType) {
-    case 'banho':
-      return 'Agenda de Banho e Tosa';
-    case 'vet':
-      return 'Agenda de Consultas Veterinárias';
+    case 'mentoria-ci':
+      return 'Agenda de Mentoria CI';
+    case 'venda-ci':
+      return 'Agenda de Venda CI';
   }
 };
 

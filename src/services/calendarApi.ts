@@ -10,38 +10,38 @@ const getEndpoints = () => {
 };
 
 // Get the correct endpoint URL based on agenda type
-const getApiUrl = (endpoint: string, agendaType: AgendaType = 'banho') => {
+const getApiUrl = (endpoint: string, agendaType: AgendaType = 'mentoria-ci') => {
   const endpoints = getEndpoints();
   
   // Map base endpoint names to their specific agenda type variants
   switch (endpoint) {
     case 'base':
       switch (agendaType) {
-        case 'banho': return endpoints.agendaBanho || 'https://webhook.n8nlabz.com.br/webhook/agenda/banho';
-        case 'vet': return endpoints.agendaVet || 'https://webhook.n8nlabz.com.br/webhook/agenda/vet';
+        case 'mentoria-ci': return endpoints.agendaMentoriaCi || 'https://webhook.comunidadeimobiliaria.com.br/webhook/agenda/mentoria-ci';
+        case 'venda-ci': return endpoints.agendaVendaCi || 'https://webhook.comunidadeimobiliaria.com.br/webhook/agenda/venda-ci';
       }
     case 'adicionar':
       switch (agendaType) {
-        case 'banho': return endpoints.agendaAdicionarBanho || 'https://webhook.n8nlabz.com.br/webhook/agenda/adicionar/banho';
-        case 'vet': return endpoints.agendaAdicionarVet || 'https://webhook.n8nlabz.com.br/webhook/agenda/adicionar/vet';
+        case 'mentoria-ci': return endpoints.agendaAdicionarMentoriaCi || 'https://webhook.comunidadeimobiliaria.com.br/webhook/agenda/adicionar/mentoria-ci';
+        case 'venda-ci': return endpoints.agendaAdicionarVendaCi || 'https://webhook.comunidadeimobiliaria.com.br/webhook/agenda/adicionar/venda-ci';
       }
-    case 'alterar':
+    case 'alterar':  
       switch (agendaType) {
-        case 'banho': return endpoints.agendaAlterarBanho || 'https://webhook.n8nlabz.com.br/webhook/agenda/alterar/banho';
-        case 'vet': return endpoints.agendaAlterarVet || 'https://webhook.n8nlabz.com.br/webhook/agenda/alterar/vet';
+        case 'mentoria-ci': return endpoints.agendaAlterarMentoriaCi || 'https://webhook.comunidadeimobiliaria.com.br/webhook/agenda/alterar/mentoria-ci';
+        case 'venda-ci': return endpoints.agendaAlterarVendaCi || 'https://webhook.comunidadeimobiliaria.com.br/webhook/agenda/alterar/venda-ci';
       }
     case 'excluir':
       switch (agendaType) {
-        case 'banho': return endpoints.agendaExcluirBanho || 'https://webhook.n8nlabz.com.br/webhook/agenda/excluir/banho';
-        case 'vet': return endpoints.agendaExcluirVet || 'https://webhook.n8nlabz.com.br/webhook/agenda/excluir/vet';
+        case 'mentoria-ci': return endpoints.agendaExcluirMentoriaCi || 'https://webhook.comunidadeimobiliaria.com.br/webhook/agenda/excluir/mentoria-ci';
+        case 'venda-ci': return endpoints.agendaExcluirVendaCi || 'https://webhook.comunidadeimobiliaria.com.br/webhook/agenda/excluir/venda-ci';
       }
     default:
-      return endpoints.agendaBanho || 'https://webhook.n8nlabz.com.br/webhook/agenda/banho';
+      return endpoints.agendaMentoriaCi || 'https://webhook.comunidadeimobiliaria.com.br/webhook/agenda/mentoria-ci';
   }
 };
 
 // Fetch events with GET method
-export async function fetchCalendarEvents(agendaType: AgendaType = 'banho', selectedDate?: Date | null) {
+export async function fetchCalendarEvents(agendaType: AgendaType = 'mentoria-ci', selectedDate?: Date | null) {
   try {
     // Format date parameters for the API
     let url = getApiUrl('base', agendaType);
@@ -70,7 +70,7 @@ export async function fetchCalendarEvents(agendaType: AgendaType = 'banho', sele
 }
 
 // Refresh events with POST method
-export async function refreshCalendarEventsPost(agendaType: AgendaType = 'banho', selectedDate?: Date | null) {
+export async function refreshCalendarEventsPost(agendaType: AgendaType = 'mentoria-ci', selectedDate?: Date | null) {
   try {
     // Create payload with selected date if available
     const payload: any = {};
@@ -107,7 +107,7 @@ export async function refreshCalendarEventsPost(agendaType: AgendaType = 'banho'
 }
 
 // Add a new event
-export async function addCalendarEvent(formData: EventFormData, agendaType: AgendaType = 'banho') {
+export async function addCalendarEvent(formData: EventFormData, agendaType: AgendaType = 'mentoria-ci') {
   try {
     // Format the date and times for the API
     const { date, startTime, endTime, summary, description, email } = formData;
@@ -148,7 +148,7 @@ export async function addCalendarEvent(formData: EventFormData, agendaType: Agen
 }
 
 // Edit an existing event
-export async function editCalendarEvent(eventId: string, formData: EventFormData, agendaType: AgendaType = 'banho') {
+export async function editCalendarEvent(eventId: string, formData: EventFormData, agendaType: AgendaType = 'mentoria-ci') {
   try {
     // Format the date and times for the API
     const { date, startTime, endTime, summary, description, email } = formData;
@@ -190,7 +190,7 @@ export async function editCalendarEvent(eventId: string, formData: EventFormData
 }
 
 // Delete an event
-export async function deleteCalendarEvent(eventId: string, agendaType: AgendaType = 'banho') {
+export async function deleteCalendarEvent(eventId: string, agendaType: AgendaType = 'mentoria-ci') {
   try {
     const payload = {
       id: eventId

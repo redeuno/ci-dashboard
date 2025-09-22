@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/components/ui/use-toast';
 
 // Default webhook base URL
-const DEFAULT_WEBHOOK_BASE = "https://webhook.n8nlabz.com.br/webhook";
+const DEFAULT_WEBHOOK_BASE = "https://webhook.comunidadeimobiliaria.com.br/webhook";
 
 // Default endpoints configuration
 const defaultEndpoints = {
@@ -16,17 +16,17 @@ const defaultEndpoints = {
   pausaBot: `${DEFAULT_WEBHOOK_BASE}/pausa_bot`,
   iniciaBot: `${DEFAULT_WEBHOOK_BASE}/inicia_bot`,
   agenda: `${DEFAULT_WEBHOOK_BASE}/agenda`,
-  agendaBanho: `${DEFAULT_WEBHOOK_BASE}/agenda/banho`,
-  agendaVet: `${DEFAULT_WEBHOOK_BASE}/agenda/vet`,
+  agendaMentoriaCi: `${DEFAULT_WEBHOOK_BASE}/agenda/mentoria-ci`,
+  agendaVendaCi: `${DEFAULT_WEBHOOK_BASE}/agenda/venda-ci`,
   agendaAlterar: `${DEFAULT_WEBHOOK_BASE}/agenda/alterar`,
-  agendaAdicionarBanho: `${DEFAULT_WEBHOOK_BASE}/agenda/adicionar/banho`,
-  agendaAdicionarVet: `${DEFAULT_WEBHOOK_BASE}/agenda/adicionar/vet`,
-  agendaAlterarBanho: `${DEFAULT_WEBHOOK_BASE}/agenda/alterar/banho`,
-  agendaAlterarVet: `${DEFAULT_WEBHOOK_BASE}/agenda/alterar/vet`,
+  agendaAdicionarMentoriaCi: `${DEFAULT_WEBHOOK_BASE}/agenda/adicionar/mentoria-ci`,
+  agendaAdicionarVendaCi: `${DEFAULT_WEBHOOK_BASE}/agenda/adicionar/venda-ci`,
+  agendaAlterarMentoriaCi: `${DEFAULT_WEBHOOK_BASE}/agenda/alterar/mentoria-ci`,
+  agendaAlterarVendaCi: `${DEFAULT_WEBHOOK_BASE}/agenda/alterar/venda-ci`,
   agendaAdicionar: `${DEFAULT_WEBHOOK_BASE}/agenda/adicionar`,
   agendaExcluir: `${DEFAULT_WEBHOOK_BASE}/agenda/excluir`,
-  agendaExcluirBanho: `${DEFAULT_WEBHOOK_BASE}/agenda/excluir/banho`,
-  agendaExcluirVet: `${DEFAULT_WEBHOOK_BASE}/agenda/excluir/vet`,
+  agendaExcluirMentoriaCi: `${DEFAULT_WEBHOOK_BASE}/agenda/excluir/mentoria-ci`,
+  agendaExcluirVendaCi: `${DEFAULT_WEBHOOK_BASE}/agenda/excluir/venda-ci`,
   enviaRag: `${DEFAULT_WEBHOOK_BASE}/envia_rag`,
   excluirArquivoRag: `${DEFAULT_WEBHOOK_BASE}/excluir-arquivo-rag`,
   excluirRag: `${DEFAULT_WEBHOOK_BASE}/excluir-rag`,
@@ -42,17 +42,17 @@ const endpointGroups = {
   ],
   'Configuração da Agenda': [
     { id: 'agenda', label: 'URL Base da Agenda', key: 'agenda' },
-    { id: 'agendaBanho', label: 'URL Agenda Banho', key: 'agendaBanho' },
-    { id: 'agendaVet', label: 'URL Agenda Veterinário', key: 'agendaVet' },
+    { id: 'agendaMentoriaCi', label: 'URL Agenda Mentoria CI', key: 'agendaMentoriaCi' },
+    { id: 'agendaVendaCi', label: 'URL Agenda Venda CI', key: 'agendaVendaCi' },
     { id: 'agendaAdicionar', label: 'Adicionar Evento (Geral)', key: 'agendaAdicionar' },
-    { id: 'agendaAdicionarBanho', label: 'Adicionar Evento Banho', key: 'agendaAdicionarBanho' },
-    { id: 'agendaAdicionarVet', label: 'Adicionar Evento Veterinário', key: 'agendaAdicionarVet' },
+    { id: 'agendaAdicionarMentoriaCi', label: 'Adicionar Evento Mentoria CI', key: 'agendaAdicionarMentoriaCi' },
+    { id: 'agendaAdicionarVendaCi', label: 'Adicionar Evento Venda CI', key: 'agendaAdicionarVendaCi' },
     { id: 'agendaAlterar', label: 'Alterar Evento (Geral)', key: 'agendaAlterar' },
-    { id: 'agendaAlterarBanho', label: 'Alterar Evento Banho', key: 'agendaAlterarBanho' },
-    { id: 'agendaAlterarVet', label: 'Alterar Evento Veterinário', key: 'agendaAlterarVet' },
+    { id: 'agendaAlterarMentoriaCi', label: 'Alterar Evento Mentoria CI', key: 'agendaAlterarMentoriaCi' },
+    { id: 'agendaAlterarVendaCi', label: 'Alterar Evento Venda CI', key: 'agendaAlterarVendaCi' },
     { id: 'agendaExcluir', label: 'Excluir Evento (Geral)', key: 'agendaExcluir' },
-    { id: 'agendaExcluirBanho', label: 'Excluir Evento Banho', key: 'agendaExcluirBanho' },
-    { id: 'agendaExcluirVet', label: 'Excluir Evento Veterinário', key: 'agendaExcluirVet' }
+    { id: 'agendaExcluirMentoriaCi', label: 'Excluir Evento Mentoria CI', key: 'agendaExcluirMentoriaCi' },
+    { id: 'agendaExcluirVendaCi', label: 'Excluir Evento Venda CI', key: 'agendaExcluirVendaCi' }
   ],
   'Configuração do Bot': [
     { id: 'mensagem', label: 'Enviar Mensagem', key: 'mensagem' },

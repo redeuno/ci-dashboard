@@ -10,7 +10,7 @@ import { CalendarEvent, EventFormData } from '@/types/calendar';
 import { AgendaType } from '@/hooks/useAgendaType';
 import { toast } from 'sonner';
 
-export function useCalendarEvents(agendaType: AgendaType = 'banho', selectedDate?: Date | null) {
+export function useCalendarEvents(agendaType: AgendaType = 'mentoria-ci', selectedDate?: Date | null) {
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
