@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
+import { getEndpoint } from '@/utils/endpoints';
 
 // Document type definition
 export interface Document {
@@ -109,7 +110,7 @@ export const useDocuments = () => {
       // Call webhook to delete file from RAG system
       console.log('Enviando solicitação para excluir arquivo:', title);
       
-      const response = await fetch('https://webhook.comunidadeimobiliaria.com.br/webhook/excluir-arquivo-rag', {
+      const response = await fetch(getEndpoint('excluirArquivoRag'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -146,7 +147,7 @@ export const useDocuments = () => {
     try {
       console.log('Enviando solicitação para excluir toda a base de conhecimento');
       
-      const response = await fetch('https://webhook.comunidadeimobiliaria.com.br/webhook/excluir-rag', {
+      const response = await fetch(getEndpoint('excluirRag'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -185,7 +186,7 @@ export const useDocuments = () => {
 
       console.log('Enviando arquivo para o webhook:', file.name, 'categoria:', category);
       
-      const response = await fetch('https://webhook.comunidadeimobiliaria.com.br/webhook/envia_rag', {
+      const response = await fetch(getEndpoint('enviaRag'), {
         method: 'POST',
         body: formData,
       });

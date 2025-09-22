@@ -17,26 +17,26 @@ const getApiUrl = (endpoint: string, agendaType: AgendaType = 'mentoria-ci') => 
   switch (endpoint) {
     case 'base':
       switch (agendaType) {
-        case 'mentoria-ci': return endpoints.agendaMentoriaCi || 'https://webhook.comunidadeimobiliaria.com.br/webhook/agenda/mentoria-ci';
-        case 'venda-ci': return endpoints.agendaVendaCi || 'https://webhook.comunidadeimobiliaria.com.br/webhook/agenda/venda-ci';
+        case 'mentoria-ci': return endpoints.agendaMentoriaCi || 'https://endpoint.comunidadeimobiliaria.com.br/webhook/agenda/mentoria-ci';
+        case 'venda-ci': return endpoints.agendaVendaCi || 'https://endpoint.comunidadeimobiliaria.com.br/webhook/agenda/venda-ci';
       }
     case 'adicionar':
       switch (agendaType) {
-        case 'mentoria-ci': return endpoints.agendaAdicionarMentoriaCi || 'https://webhook.comunidadeimobiliaria.com.br/webhook/agenda/adicionar/mentoria-ci';
-        case 'venda-ci': return endpoints.agendaAdicionarVendaCi || 'https://webhook.comunidadeimobiliaria.com.br/webhook/agenda/adicionar/venda-ci';
+        case 'mentoria-ci': return endpoints.agendaAdicionarMentoriaCi || 'https://endpoint.comunidadeimobiliaria.com.br/webhook/agenda/adicionar/mentoria-ci';
+        case 'venda-ci': return endpoints.agendaAdicionarVendaCi || 'https://endpoint.comunidadeimobiliaria.com.br/webhook/agenda/adicionar/venda-ci';
       }
     case 'alterar':  
       switch (agendaType) {
-        case 'mentoria-ci': return endpoints.agendaAlterarMentoriaCi || 'https://webhook.comunidadeimobiliaria.com.br/webhook/agenda/alterar/mentoria-ci';
-        case 'venda-ci': return endpoints.agendaAlterarVendaCi || 'https://webhook.comunidadeimobiliaria.com.br/webhook/agenda/alterar/venda-ci';
+        case 'mentoria-ci': return endpoints.agendaAlterarMentoriaCi || 'https://endpoint.comunidadeimobiliaria.com.br/webhook/agenda/alterar/mentoria-ci';
+        case 'venda-ci': return endpoints.agendaAlterarVendaCi || 'https://endpoint.comunidadeimobiliaria.com.br/webhook/agenda/alterar/venda-ci';
       }
     case 'excluir':
       switch (agendaType) {
-        case 'mentoria-ci': return endpoints.agendaExcluirMentoriaCi || 'https://webhook.comunidadeimobiliaria.com.br/webhook/agenda/excluir/mentoria-ci';
-        case 'venda-ci': return endpoints.agendaExcluirVendaCi || 'https://webhook.comunidadeimobiliaria.com.br/webhook/agenda/excluir/venda-ci';
+        case 'mentoria-ci': return endpoints.agendaExcluirMentoriaCi || 'https://endpoint.comunidadeimobiliaria.com.br/webhook/agenda/excluir/mentoria-ci';
+        case 'venda-ci': return endpoints.agendaExcluirVendaCi || 'https://endpoint.comunidadeimobiliaria.com.br/webhook/agenda/excluir/venda-ci';
       }
     default:
-      return endpoints.agendaMentoriaCi || 'https://webhook.comunidadeimobiliaria.com.br/webhook/agenda/mentoria-ci';
+      return endpoints.agendaMentoriaCi || 'https://endpoint.comunidadeimobiliaria.com.br/webhook/agenda/mentoria-ci';
   }
 };
 

@@ -46,6 +46,7 @@ import { useToast } from '@/hooks/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
+import { getEndpoint } from '@/utils/endpoints';
 
 // Define agent interfaces
 interface Agent {
@@ -177,7 +178,7 @@ const AgentConfig = () => {
 
   const sendAgentDataToWebhook = async (agentData: AgentFormValues) => {
     try {
-      const response = await fetch('https://webhook.comunidadeimobiliaria.com.br/webhook/config_agent', {
+      const response = await fetch(getEndpoint('configAgent'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

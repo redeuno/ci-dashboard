@@ -8,6 +8,7 @@ import { useConversations } from '@/hooks/useConversations';
 import { useRealtimeUpdates } from '@/hooks/useRealtimeUpdates';
 import { useChatMessages } from '@/hooks/useChatMessages';
 import PauseDurationDialog from '@/components/PauseDurationDialog';
+import { getEndpoint } from '@/utils/endpoints';
 
 const ChatsDashboard = () => {
   const { user, signOut } = useAuth();
@@ -55,7 +56,7 @@ const ChatsDashboard = () => {
     try {
       setIsLoading(prev => ({ ...prev, [`pause-${selectedPhoneNumber}`]: true }));
       
-      const response = await fetch('https://webhook.comunidadeimobiliaria.com.br/webhook/pausa_bot', {
+      const response = await fetch(getEndpoint('pausaBot'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -94,7 +95,7 @@ const ChatsDashboard = () => {
     try {
       setIsLoading(prev => ({ ...prev, [`start-${phoneNumber}`]: true }));
       
-      const response = await fetch('https://webhook.comunidadeimobiliaria.com.br/webhook/inicia_bot', {
+      const response = await fetch(getEndpoint('iniciaBot'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

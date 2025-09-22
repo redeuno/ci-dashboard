@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Contact } from '@/types/client';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from '@/hooks/use-toast';
+import { getEndpoint } from '@/utils/endpoints';
 
 export const useClientManagement = () => {
   const [contacts, setContacts] = useState<Contact[]>([]);
@@ -147,7 +148,7 @@ export const useClientManagement = () => {
         });
         
         try {
-          await fetch('https://webhook.comunidadeimobiliaria.com.br/webhook/cria_usuario', {
+          await fetch(getEndpoint('criaUsuario'), {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -200,7 +201,7 @@ export const useClientManagement = () => {
       });
       
       try {
-        await fetch('https://webhook.comunidadeimobiliaria.com.br/webhook/edita_usuario', {
+        await fetch(getEndpoint('editaUsuario'), {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -247,7 +248,7 @@ export const useClientManagement = () => {
       });
       
       try {
-        await fetch('https://webhook.comunidadeimobiliaria.com.br/webhook/exclui_usuario', {
+        await fetch(getEndpoint('excluiUsuario'), {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -303,7 +304,7 @@ export const useClientManagement = () => {
     if (!selectedContact) return;
     
     try {
-      const response = await fetch('https://webhook.comunidadeimobiliaria.com.br/webhook/envia_mensagem', {
+      const response = await fetch(getEndpoint('mensagem'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

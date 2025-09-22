@@ -9,6 +9,7 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
+import { getEndpoint } from '@/utils/endpoints';
 
 const Evolution = () => {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const Evolution = () => {
   const checkConnectionStatus = async () => {
     try {
       console.log('Checking connection status for:', instanceName);
-      const response = await fetch('https://webhook.comunidadeimobiliaria.com.br/webhook/confirma', {
+      const response = await fetch(getEndpoint('confirma'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -144,7 +145,7 @@ const Evolution = () => {
     try {
       setIsLoading(true);
       console.log('Updating QR code for instance:', instanceName);
-      const response = await fetch('https://webhook.comunidadeimobiliaria.com.br/webhook/atualizar-qr-code', {
+      const response = await fetch(getEndpoint('atualizarQrCode'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -226,7 +227,7 @@ const Evolution = () => {
     
     try {
       console.log('Creating instance:', { instanceName, webhookPath });
-      const response = await fetch('https://webhook.comunidadeimobiliaria.com.br/webhook/instanciaevolution', {
+      const response = await fetch(getEndpoint('instanciaEvolution'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Conversation } from '@/types/chat';
 import { useToast } from '@/hooks/use-toast';
+import { getEndpoint } from '@/utils/endpoints';
 
 interface MessageInputProps {
   selectedChat: string | null;
@@ -23,7 +24,7 @@ const MessageInput = ({ selectedChat, selectedConversation }: MessageInputProps)
     try {
       setIsSending(true);
       
-      const response = await fetch('https://webhook.comunidadeimobiliaria.com.br/webhook/envia_mensagem', {
+      const response = await fetch(getEndpoint('mensagem'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -20,29 +20,36 @@ import { useEffect } from "react";
 
 const queryClient = new QueryClient();
 
-// Migrate old domain URLs in localStorage
+// Function to migrate old domain URLs in localStorage
 const migrateLocalStorageUrls = () => {
-  try {
-    const savedEndpoints = localStorage.getItem('webhookEndpoints');
-    if (savedEndpoints) {
+  const savedEndpoints = localStorage.getItem('webhookEndpoints');
+  if (savedEndpoints) {
+    try {
       const endpoints = JSON.parse(savedEndpoints);
       let updated = false;
       
-      // Update all endpoints that use the old domain
+      // Update URLs from old domain to new domain
       Object.keys(endpoints).forEach(key => {
-        if (endpoints[key] && endpoints[key].includes('n8nlabz.com.br')) {
-          endpoints[key] = endpoints[key].replace('n8nlabz.com.br', 'comunidadeimobiliaria.com.br');
-          updated = true;
+        if (endpoints[key] && typeof endpoints[key] === 'string') {
+          if (endpoints[key].includes('n8nlabz.com.br')) {
+            endpoints[key] = endpoints[key].replace('n8nlabz.com.br', 'comunidadeimobiliaria.com.br');
+            updated = true;
+          }
+          // Also fix webhook subdomain to endpoint subdomain
+          if (endpoints[key].includes('webhook.comunidadeimobiliaria.com.br')) {
+            endpoints[key] = endpoints[key].replace('webhook.comunidadeimobiliaria.com.br', 'endpoint.comunidadeimobiliaria.com.br');
+            updated = true;
+          }
         }
       });
       
       if (updated) {
         localStorage.setItem('webhookEndpoints', JSON.stringify(endpoints));
-        console.log('Updated webhook endpoints to new domain');
+        console.log('Updated localStorage URLs to use correct endpoint subdomain');
       }
+    } catch (error) {
+      console.error('Error migrating localStorage URLs:', error);
     }
-  } catch (error) {
-    console.error('Error migrating localStorage URLs:', error);
   }
 };
 

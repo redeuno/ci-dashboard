@@ -7,33 +7,8 @@ import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/components/ui/use-toast';
 
-// Default webhook base URL
-const DEFAULT_WEBHOOK_BASE = "https://webhook.comunidadeimobiliaria.com.br/webhook";
-
-// Default endpoints configuration
-const defaultEndpoints = {
-  mensagem: `${DEFAULT_WEBHOOK_BASE}/envia_mensagem`,
-  pausaBot: `${DEFAULT_WEBHOOK_BASE}/pausa_bot`,
-  iniciaBot: `${DEFAULT_WEBHOOK_BASE}/inicia_bot`,
-  agenda: `${DEFAULT_WEBHOOK_BASE}/agenda`,
-  agendaMentoriaCi: `${DEFAULT_WEBHOOK_BASE}/agenda/mentoria-ci`,
-  agendaVendaCi: `${DEFAULT_WEBHOOK_BASE}/agenda/venda-ci`,
-  agendaAlterar: `${DEFAULT_WEBHOOK_BASE}/agenda/alterar`,
-  agendaAdicionarMentoriaCi: `${DEFAULT_WEBHOOK_BASE}/agenda/adicionar/mentoria-ci`,
-  agendaAdicionarVendaCi: `${DEFAULT_WEBHOOK_BASE}/agenda/adicionar/venda-ci`,
-  agendaAlterarMentoriaCi: `${DEFAULT_WEBHOOK_BASE}/agenda/alterar/mentoria-ci`,
-  agendaAlterarVendaCi: `${DEFAULT_WEBHOOK_BASE}/agenda/alterar/venda-ci`,
-  agendaAdicionar: `${DEFAULT_WEBHOOK_BASE}/agenda/adicionar`,
-  agendaExcluir: `${DEFAULT_WEBHOOK_BASE}/agenda/excluir`,
-  agendaExcluirMentoriaCi: `${DEFAULT_WEBHOOK_BASE}/agenda/excluir/mentoria-ci`,
-  agendaExcluirVendaCi: `${DEFAULT_WEBHOOK_BASE}/agenda/excluir/venda-ci`,
-  enviaRag: `${DEFAULT_WEBHOOK_BASE}/envia_rag`,
-  excluirArquivoRag: `${DEFAULT_WEBHOOK_BASE}/excluir-arquivo-rag`,
-  excluirRag: `${DEFAULT_WEBHOOK_BASE}/excluir-rag`,
-  instanciaEvolution: `${DEFAULT_WEBHOOK_BASE}/instanciaevolution`,
-  atualizarQrCode: `${DEFAULT_WEBHOOK_BASE}/atualizar-qr-code`,
-  confirma: `${DEFAULT_WEBHOOK_BASE}/confirma`,
-};
+// Import centralized endpoints
+import { defaultEndpoints } from '@/utils/endpoints';
 
 const endpointGroups = {
   'Configuração Supabase': [
@@ -68,6 +43,14 @@ const endpointGroups = {
   'Configuração Evolution': [
     { id: 'instanciaEvolution', label: 'Instância Evolution', key: 'instanciaEvolution' },
     { id: 'atualizarQrCode', label: 'Atualizar QR Code', key: 'atualizarQrCode' }
+  ],
+  'Gerenciamento de Usuários': [
+    { id: 'criaUsuario', label: 'Criar Usuário', key: 'criaUsuario' },
+    { id: 'editaUsuario', label: 'Editar Usuário', key: 'editaUsuario' },
+    { id: 'excluiUsuario', label: 'Excluir Usuário', key: 'excluiUsuario' }
+  ],
+  'Configuração do Agente': [
+    { id: 'configAgent', label: 'Configurar Agente', key: 'configAgent' }
   ]
 };
 

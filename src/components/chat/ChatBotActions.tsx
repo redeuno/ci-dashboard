@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import PauseDurationDialog from '@/components/PauseDurationDialog';
+import { getEndpoint } from '@/utils/endpoints';
 
 interface ChatBotActionsProps {
   selectedPhoneNumber: string;
@@ -25,7 +26,7 @@ const ChatBotActions = ({ selectedPhoneNumber, selectedChat, isLoading }: ChatBo
 
   const pauseBot = async (phoneNumber: string, duration: number | null) => {
     try {
-      const response = await fetch('https://webhook.comunidadeimobiliaria.com.br/webhook/pausa_bot', {
+      const response = await fetch(getEndpoint('pausaBot'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,7 +61,7 @@ const ChatBotActions = ({ selectedPhoneNumber, selectedChat, isLoading }: ChatBo
   const startBot = async (phoneNumber: string, e: React.MouseEvent) => {
     e.stopPropagation();
     try {
-      const response = await fetch('https://webhook.comunidadeimobiliaria.com.br/webhook/inicia_bot', {
+      const response = await fetch(getEndpoint('iniciaBot'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
