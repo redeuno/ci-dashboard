@@ -1,6 +1,6 @@
 
 import React, { useEffect } from 'react';
-import { LineChart, Users, Smartphone, PawPrint } from 'lucide-react';
+import { LineChart, Users, Smartphone, Building } from 'lucide-react';
 import { useClientStats } from '@/hooks/useClientStats';
 import { useDashboardRealtime } from '@/hooks/useDashboardRealtime';
 
@@ -41,27 +41,27 @@ const MetricsDashboard = () => {
         { month: 'Dez', clients: 0 }
       ];
   
-  // Use pet breed data from the API instead of hardcoded data
-  const petBreedsData = stats.petBreeds?.length > 0 
-    ? stats.petBreeds 
+  // Use service types data from the API instead of hardcoded data
+  const serviceTypesData = stats.serviceTypes?.length > 0 
+    ? stats.serviceTypes 
     : [
         { name: 'Não especificado', value: 100, color: '#8B5CF6' }
       ];
 
-  const petServicesData = [
-    { name: 'Banho', value: 45 },
-    { name: 'Tosa', value: 35 },
-    { name: 'Consulta', value: 20 },
-    { name: 'Vacinas', value: 30 },
-    { name: 'Compras', value: 25 },
+  const realEstateServicesData = [
+    { name: 'Mentoria CI', value: 45 },
+    { name: 'Venda CI', value: 35 },
+    { name: 'Consultoria', value: 20 },
+    { name: 'Avaliação', value: 30 },
+    { name: 'Documentação', value: 25 },
   ];
   
-  // Use real client data from the database
-  const recentClientsData = stats.recentClients?.length > 0
-    ? stats.recentClients
-    : [
-        { id: 1, name: 'Carregando...', phone: '...', pets: 0, lastVisit: '...' }
-      ];
+      // Use real client data from the database
+      const recentClientsData = stats.recentClients?.length > 0
+        ? stats.recentClients
+        : [
+            { id: 1, name: 'Carregando...', phone: '...', city: '...', lastVisit: '...' }
+          ];
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
@@ -90,10 +90,10 @@ const MetricsDashboard = () => {
           />
           
           <StatCard 
-            title="Total de Pets"
-            value={stats.totalPets}
-            icon={<PawPrint />}
-            trend={`Média de ${(stats.totalPets / (stats.totalClients || 1)).toFixed(1)} pets por cliente`}
+            title="Total de Contratos"
+            value={stats.totalContracts}
+            icon={<Building />}
+            trend={`Média de ${(stats.totalContracts / (stats.totalClients || 1)).toFixed(1)} contratos por cliente`}
             loading={loading}
             iconBgClass="bg-pink-100 dark:bg-pink-900/30"
             iconTextClass="text-pink-600 dark:text-pink-400"
@@ -113,11 +113,11 @@ const MetricsDashboard = () => {
         {/* Gráficos e Tabelas */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           <ClientGrowthChart data={monthlyCustomersData} loading={loading} />
-          <PetTypesChart data={petBreedsData} loading={loading} />
+          <PetTypesChart data={serviceTypesData} loading={loading} />
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <ServicesBarChart data={petServicesData} />
+          <ServicesBarChart data={realEstateServicesData} />
           <RecentClientsTable clients={recentClientsData} loading={loading} />
         </div>
       </main>

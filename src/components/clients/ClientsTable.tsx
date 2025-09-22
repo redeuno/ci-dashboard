@@ -26,7 +26,7 @@ const ClientsTable = ({
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     (contact.email && contact.email.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (contact.petName && contact.petName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    (contact.cidade && contact.cidade.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (contact.phone && contact.phone.includes(searchTerm))
   );
 
@@ -38,7 +38,7 @@ const ClientsTable = ({
             <TableHead className="w-[250px]">Nome</TableHead>
             <TableHead>Email</TableHead>
             <TableHead>Telefone</TableHead>
-            <TableHead>Nome do Pet</TableHead>
+            <TableHead>Cidade</TableHead>
             <TableHead>Status</TableHead>
             <TableHead>Último Contato</TableHead>
           </TableRow>
@@ -63,7 +63,7 @@ const ClientsTable = ({
                 <TableCell className="font-medium">{contact.name}</TableCell>
                 <TableCell>{contact.email || '-'}</TableCell>
                 <TableCell>{contact.phone || '-'}</TableCell>
-                <TableCell>{contact.petName || '-'}</TableCell>
+                <TableCell>{contact.cidade || '-'}</TableCell>
                 <TableCell>
                   <span className={`px-2 py-1 rounded-full text-xs ${
                     contact.status === 'Active' 

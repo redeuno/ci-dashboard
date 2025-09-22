@@ -5,10 +5,10 @@ import { supabase } from '@/integrations/supabase/client';
 export function useClientStats() {
   const [stats, setStats] = useState({
     totalClients: 0,
-    totalPets: 0,
+    totalContracts: 0,
     newClientsThisMonth: 0,
     monthlyGrowth: [],
-    petBreeds: [],
+    serviceTypes: [],
     recentClients: []
   });
   const [loading, setLoading] = useState(true);
@@ -23,11 +23,10 @@ export function useClientStats() {
         .from('dados_cliente')
         .select('*', { count: 'exact' });
 
-      // Fetch total pets (assuming each client has at least one pet)
-      const { count: totalPets } = await supabase
+      // Fetch total contracts (count all clients as potential contracts)
+      const { count: totalContracts } = await supabase
         .from('dados_cliente')
-        .select('*', { count: 'exact' })
-        .not('nome_pet', 'is', null);
+        .select('*', { count: 'exact' });
 
       // Fetch new clients this month (from 1st of current month to today)
       const today = new Date();
@@ -61,16 +60,16 @@ export function useClientStats() {
         });
       }
 
-      // Fetch pet breeds data
-      const { data: petsData } = await supabase
+      // Fetch service types data (based on cities for real estate)
+      const { data: serviceData } = await supabase
         .from('dados_cliente')
-        .select('raca_pet')
-        .not('raca_pet', 'is', null);
+        .select('cidade')
+        .not('cidade', 'is', null);
 
-      const breedCounts = {};
-      petsData?.forEach(pet => {
-        if (pet.raca_pet) {
-          breedCounts[pet.raca_pet] = (breedCounts[pet.raca_pet] || 0) + 1;
+      const serviceCounts = {};
+      serviceData?.forEach(client => {
+        if (client.cidade) {
+          serviceCounts[client.cidade] = (serviceCounts[client.cidade] || 0) + 1;
         }
       });
 
@@ -80,7 +79,7 @@ export function useClientStats() {
         '#F97316', '#8B5CF6', '#06B6D4', '#D946EF'
       ];
 
-      const petBreeds = Object.entries(breedCounts).map(([name, value], index) => ({
+      const serviceTypes = Object.entries(serviceCounts).map(([name, value], index) => ({
         name,
         value,
         color: colors[index % colors.length]
@@ -89,7 +88,7 @@ export function useClientStats() {
       // Fetch recent clients
       const { data: recentClientsData } = await supabase
         .from('dados_cliente')
-        .select('id, nome, telefone, nome_pet, created_at')
+        .select('id, nome, telefone, cidade, created_at')
         .order('created_at', { ascending: false })
         .limit(5);
 
@@ -97,17 +96,17 @@ export function useClientStats() {
         id: client.id,
         name: client.nome,
         phone: client.telefone,
-        pets: client.nome_pet ? 1 : 0,
+        city: client.cidade || 'Não informado',
         lastVisit: new Date(client.created_at).toLocaleDateString('pt-BR')
       })) || [];
 
       // Update stats
       setStats({
         totalClients: totalClients || 0,
-        totalPets: totalPets || 0,
+        totalContracts: totalContracts || 0,
         newClientsThisMonth: newClientsThisMonth || 0,
         monthlyGrowth: monthlyGrowthData,
-        petBreeds,
+        serviceTypes,
         recentClients
       });
 

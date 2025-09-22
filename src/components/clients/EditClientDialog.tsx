@@ -113,44 +113,37 @@ const EditClientDialog = ({
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="edit-petName" className="text-right">
-                Nome do Pet
+              <Label htmlFor="edit-creci" className="text-right">
+                CRECI
               </Label>
               <Input
-                id="edit-petName"
-                value={editContactData.petName || ''}
-                onChange={(e) => setEditContactData({...editContactData, petName: e.target.value})}
+                id="edit-creci"
+                value={editContactData.creci || ''}
+                onChange={(e) => setEditContactData({...editContactData, creci: e.target.value})}
                 className="col-span-3"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="edit-petBreed" className="text-right">
-                Raça do Pet
+              <Label htmlFor="edit-cep" className="text-right">
+                CEP
               </Label>
               <Input
-                id="edit-petBreed"
-                value={editContactData.petBreed || ''}
-                onChange={(e) => setEditContactData({...editContactData, petBreed: e.target.value})}
+                id="edit-cep"
+                value={editContactData.cep || ''}
+                onChange={(e) => setEditContactData({...editContactData, cep: e.target.value})}
                 className="col-span-3"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="edit-petSize" className="text-right">
-                Porte do Pet
+              <Label htmlFor="edit-cidade" className="text-right">
+                Cidade
               </Label>
-              <Select
-                value={editContactData.petSize || ''}
-                onValueChange={(value) => setEditContactData({...editContactData, petSize: value})}
-              >
-                <SelectTrigger id="edit-petSize" className="col-span-3">
-                  <SelectValue placeholder="Selecione o porte" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="pequeno">Pequeno</SelectItem>
-                  <SelectItem value="medio">Médio</SelectItem>
-                  <SelectItem value="grande">Grande</SelectItem>
-                </SelectContent>
-              </Select>
+              <Input
+                id="edit-cidade"
+                value={editContactData.cidade || ''}
+                onChange={(e) => setEditContactData({...editContactData, cidade: e.target.value})}
+                className="col-span-3"
+              />
             </div>
           </div>
           <div className="grid grid-cols-4 items-start gap-4">

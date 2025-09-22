@@ -21,13 +21,13 @@ export const useClientManagement = () => {
     email: '',
     phone: '',
     address: '',
-    petName: '',
-    petSize: '',
-    petBreed: '',
     cpfCnpj: '',
     asaasCustomerId: '',
     status: 'Active',
     notes: '',
+    creci: '',
+    cep: '',
+    cidade: '',
   });
 
   const fetchClients = async () => {
@@ -48,15 +48,16 @@ export const useClientManagement = () => {
           name: client.nome || 'Cliente sem nome',
           email: client.email,
           phone: client.telefone,
-          petName: client.nome_pet,
-          petSize: client.porte_pet,
-          petBreed: client.raca_pet,
+          address: client.endereco,
           cpfCnpj: client.cpf_cnpj,
           asaasCustomerId: client.asaas_customer_id,
           payments: client.payments,
           status: 'Active',
           notes: '',
-          lastContact: client.created_at ? new Date(client.created_at).toLocaleDateString('pt-BR') : 'Desconhecido'
+          lastContact: client.created_at ? new Date(client.created_at).toLocaleDateString('pt-BR') : 'Desconhecido',
+          creci: client.creci,
+          cep: client.cep,
+          cidade: client.cidade
         }));
         
         setContacts(formattedContacts);
@@ -106,12 +107,13 @@ export const useClientManagement = () => {
             nome: newContact.name,
             email: newContact.email,
             telefone: newContact.phone,
-            nome_pet: newContact.petName,
-            porte_pet: newContact.petSize,
-            raca_pet: newContact.petBreed,
+            endereco: newContact.address,
             cpf_cnpj: newContact.cpfCnpj,
             asaas_customer_id: newContact.asaasCustomerId,
-            payments: newContact.payments || null
+            payments: newContact.payments || null,
+            creci: newContact.creci,
+            cep: newContact.cep,
+            cidade: newContact.cidade
           }
         ])
         .select();
@@ -128,13 +130,13 @@ export const useClientManagement = () => {
           email: '',
           phone: '',
           address: '',
-          petName: '',
-          petSize: '',
-          petBreed: '',
           cpfCnpj: '',
           asaasCustomerId: '',
           status: 'Active',
           notes: '',
+          creci: '',
+          cep: '',
+          cidade: '',
         });
         
         setIsAddContactOpen(false);
@@ -145,7 +147,7 @@ export const useClientManagement = () => {
         });
         
         try {
-          await fetch('https://webhook.n8nlabz.com.br/webhook/cria_usuario', {
+          await fetch('https://webhook.comunidadeimobiliaria.com.br/webhook/cria_usuario', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -176,12 +178,13 @@ export const useClientManagement = () => {
           nome: newContact.name,
           email: newContact.email,
           telefone: newContact.phone,
-          nome_pet: newContact.petName,
-          porte_pet: newContact.petSize,
-          raca_pet: newContact.petBreed,
+          endereco: newContact.address,
           cpf_cnpj: newContact.cpfCnpj,
           asaas_customer_id: newContact.asaasCustomerId,
-          payments: newContact.payments
+          payments: newContact.payments,
+          creci: newContact.creci,
+          cep: newContact.cep,
+          cidade: newContact.cidade
         })
         .eq('id', parseInt(selectedContact.id));
       
@@ -197,7 +200,7 @@ export const useClientManagement = () => {
       });
       
       try {
-        await fetch('https://webhook.n8nlabz.com.br/webhook/edita_usuario', {
+        await fetch('https://webhook.comunidadeimobiliaria.com.br/webhook/edita_usuario', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -244,7 +247,7 @@ export const useClientManagement = () => {
       });
       
       try {
-        await fetch('https://webhook.n8nlabz.com.br/webhook/exclui_usuario', {
+        await fetch('https://webhook.comunidadeimobiliaria.com.br/webhook/exclui_usuario', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -272,14 +275,14 @@ export const useClientManagement = () => {
       email: selectedContact.email,
       phone: selectedContact.phone,
       address: selectedContact.address,
-      petName: selectedContact.petName,
-      petSize: selectedContact.petSize,
-      petBreed: selectedContact.petBreed,
       cpfCnpj: selectedContact.cpfCnpj,
       asaasCustomerId: selectedContact.asaasCustomerId,
       payments: selectedContact.payments,
       status: selectedContact.status,
       notes: selectedContact.notes,
+      creci: selectedContact.creci,
+      cep: selectedContact.cep,
+      cidade: selectedContact.cidade,
     });
     setIsEditModalOpen(true);
   };
@@ -300,7 +303,7 @@ export const useClientManagement = () => {
     if (!selectedContact) return;
     
     try {
-      const response = await fetch('https://webhook.n8nlabz.com.br/webhook/envia_mensagem', {
+      const response = await fetch('https://webhook.comunidadeimobiliaria.com.br/webhook/envia_mensagem', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

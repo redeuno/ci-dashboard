@@ -32,10 +32,10 @@ export const useDocuments = () => {
   const fetchDocuments = async () => {
     try {
       setIsLoading(true);
-      // Only select titulo column
+      // Select available columns from documents table
       const { data, error } = await supabase
         .from('documents')
-        .select('titulo');
+        .select('id, content');
 
       if (error) {
         console.error('Error fetching documents:', error);
@@ -49,18 +49,18 @@ export const useDocuments = () => {
 
       // Transform the data to match our Document interface
       const formattedDocs: Document[] = data.map((doc, index) => {
-        // Use titulo from the database if available, otherwise generate a name
-        const documentName = doc.titulo || `Documento ${index + 1}`;
+        // Use content snippet as name or generate a name
+        const contentSnippet = doc.content ? doc.content.substring(0, 50) + '...' : `Documento ${index + 1}`;
         
         // Create dummy data for other required fields since we don't have metadata
         return {
-          id: index + 1, // Generate dummy id
-          name: documentName,
+          id: doc.id || index + 1,
+          name: contentSnippet,
           type: 'unknown',
           size: 'Unknown',
           category: 'Sem categoria',
           uploadedAt: new Date().toISOString().split('T')[0],
-          titulo: doc.titulo,
+          titulo: contentSnippet,
         };
       });
 
@@ -83,13 +83,12 @@ export const useDocuments = () => {
 
   // Filter documents to keep only unique titulo entries
   const filterUniqueByTitle = (docs: Document[]): Document[] => {
-    const uniqueTitles = new Set<string>();
+    const uniqueIds = new Set<number>();
     return docs.filter(doc => {
-      const title = doc.titulo || doc.name;
-      if (uniqueTitles.has(title)) {
+      if (uniqueIds.has(doc.id)) {
         return false;
       }
-      uniqueTitles.add(title);
+      uniqueIds.add(doc.id);
       return true;
     });
   };
@@ -110,7 +109,7 @@ export const useDocuments = () => {
       // Call webhook to delete file from RAG system
       console.log('Enviando solicitação para excluir arquivo:', title);
       
-      const response = await fetch('https://webhook.n8nlabz.com.br/webhook/excluir-arquivo-rag', {
+      const response = await fetch('https://webhook.comunidadeimobiliaria.com.br/webhook/excluir-arquivo-rag', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -147,7 +146,7 @@ export const useDocuments = () => {
     try {
       console.log('Enviando solicitação para excluir toda a base de conhecimento');
       
-      const response = await fetch('https://webhook.n8nlabz.com.br/webhook/excluir-rag', {
+      const response = await fetch('https://webhook.comunidadeimobiliaria.com.br/webhook/excluir-rag', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -186,7 +185,7 @@ export const useDocuments = () => {
 
       console.log('Enviando arquivo para o webhook:', file.name, 'categoria:', category);
       
-      const response = await fetch('https://webhook.n8nlabz.com.br/webhook/envia_rag', {
+      const response = await fetch('https://webhook.comunidadeimobiliaria.com.br/webhook/envia_rag', {
         method: 'POST',
         body: formData,
       });

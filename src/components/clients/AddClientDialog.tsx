@@ -119,44 +119,37 @@ const AddClientDialog = ({
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="petName" className="text-right">
-                Nome do Pet
+              <Label htmlFor="creci" className="text-right">
+                CRECI
               </Label>
               <Input
-                id="petName"
-                value={newContact.petName || ''}
-                onChange={(e) => setNewContact({...newContact, petName: e.target.value})}
+                id="creci"
+                value={newContact.creci || ''}
+                onChange={(e) => setNewContact({...newContact, creci: e.target.value})}
                 className="col-span-3"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="petBreed" className="text-right">
-                Raça do Pet
+              <Label htmlFor="cep" className="text-right">
+                CEP
               </Label>
               <Input
-                id="petBreed"
-                value={newContact.petBreed || ''}
-                onChange={(e) => setNewContact({...newContact, petBreed: e.target.value})}
+                id="cep"
+                value={newContact.cep || ''}
+                onChange={(e) => setNewContact({...newContact, cep: e.target.value})}
                 className="col-span-3"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="petSize" className="text-right">
-                Porte do Pet
+              <Label htmlFor="cidade" className="text-right">
+                Cidade
               </Label>
-              <Select
-                value={newContact.petSize || ''}
-                onValueChange={(value) => setNewContact({...newContact, petSize: value})}
-              >
-                <SelectTrigger className="col-span-3">
-                  <SelectValue placeholder="Selecione o porte" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="pequeno">Pequeno</SelectItem>
-                  <SelectItem value="medio">Médio</SelectItem>
-                  <SelectItem value="grande">Grande</SelectItem>
-                </SelectContent>
-              </Select>
+              <Input
+                id="cidade"
+                value={newContact.cidade || ''}
+                onChange={(e) => setNewContact({...newContact, cidade: e.target.value})}
+                className="col-span-3"
+              />
             </div>
           </div>
           <div className="grid grid-cols-4 items-start gap-4">

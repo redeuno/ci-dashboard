@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/sheet";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { User, Phone, Mail, MapPin, MessageSquare, CreditCard, FileText, Dog, Trash2, Edit2 } from 'lucide-react';
+import { User, Phone, Mail, MapPin, MessageSquare, CreditCard, FileText, Building, Trash2, Edit2 } from 'lucide-react';
 import { Contact } from '@/types/client';
 import DeleteClientDialog from './DeleteClientDialog';
 import SendMessageDialog from './SendMessageDialog';
@@ -64,7 +64,7 @@ const ClientDetailSheet = ({
             {selectedContact.name}
           </SheetTitle>
           <SheetDescription>
-            Detalhes do cliente e seu pet
+            Detalhes do cliente imobiliário
           </SheetDescription>
         </SheetHeader>
         <div className="mt-6 space-y-6">
@@ -107,25 +107,25 @@ const ClientDetailSheet = ({
           
           <div className="space-y-4">
             <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">
-              Informações do Pet
+              Informações Imobiliárias
             </h3>
             <div className="grid grid-cols-[20px_1fr] gap-x-3 gap-y-4 items-start">
-              <Dog className="h-5 w-5 text-gray-500" />
+              <FileText className="h-5 w-5 text-gray-500" />
               <div>
-                <p className="text-sm font-medium">{selectedContact.petName || 'Não informado'}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Nome do Pet</p>
+                <p className="text-sm font-medium">{selectedContact.creci || 'Não informado'}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">CRECI</p>
               </div>
               
-              <Dog className="h-5 w-5 text-gray-500" />
+              <MapPin className="h-5 w-5 text-gray-500" />
               <div>
-                <p className="text-sm font-medium">{selectedContact.petBreed || 'Não informado'}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Raça</p>
+                <p className="text-sm font-medium">{selectedContact.cep || 'Não informado'}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">CEP</p>
               </div>
               
-              <Dog className="h-5 w-5 text-gray-500" />
+              <MapPin className="h-5 w-5 text-gray-500" />
               <div>
-                <p className="text-sm font-medium">{selectedContact.petSize || 'Não informado'}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Porte</p>
+                <p className="text-sm font-medium">{selectedContact.cidade || 'Não informado'}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Cidade</p>
               </div>
             </div>
           </div>

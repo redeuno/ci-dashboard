@@ -103,7 +103,7 @@ const ClientsDashboard = () => {
               Total de clientes: {contacts.filter(contact =>
                 contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 (contact.email && contact.email.toLowerCase().includes(searchTerm.toLowerCase())) ||
-                (contact.petName && contact.petName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                (contact.cidade && contact.cidade.toLowerCase().includes(searchTerm.toLowerCase())) ||
                 (contact.phone && contact.phone.includes(searchTerm))
               ).length}
             </div>
