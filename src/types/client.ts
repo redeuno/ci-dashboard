@@ -14,4 +14,6 @@ export interface Contact {
   creci?: string | null;
   cep?: string | null;
   cidade?: string | null;
+  sessionid?: string | null;
+  instancia?: string | null;
 }

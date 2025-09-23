@@ -4,6 +4,9 @@ import { Contact } from '@/types/client';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from '@/hooks/use-toast';
 import { getEndpoint } from '@/utils/endpoints';
+import { formatPhoneForEvolution, extractCleanPhone, isValidBrazilianPhone } from '@/utils/phoneUtils';
+import { isValidDocument, isValidEmail, generateUUID } from '@/utils/validationUtils';
+import { callWebhookWithRetry, logWebhookResult } from '@/utils/webhookUtils';
 
 export const useClientManagement = () => {
   const [contacts, setContacts] = useState<Contact[]>([]);
@@ -29,6 +32,8 @@ export const useClientManagement = () => {
     creci: '',
     cep: '',
     cidade: '',
+    sessionid: '',
+    instancia: '',
   });
 
   const fetchClients = async () => {
@@ -48,17 +53,19 @@ export const useClientManagement = () => {
           id: client.id.toString(),
           name: client.nome || 'Cliente sem nome',
           email: client.email,
-          phone: client.telefone,
+          phone: client.telefone ? extractCleanPhone(client.telefone) : null,
           address: client.endereco,
           cpfCnpj: client.cpf_cnpj,
           asaasCustomerId: client.asaas_customer_id,
           payments: client.payments,
           status: 'Active',
-          notes: '',
+          notes: client.notes || '',
           lastContact: client.created_at ? new Date(client.created_at).toLocaleDateString('pt-BR') : 'Desconhecido',
           creci: client.creci,
           cep: client.cep,
-          cidade: client.cidade
+          cidade: client.cidade,
+          sessionid: client.sessionid,
+          instancia: client.instancia
         }));
         
         setContacts(formattedContacts);
@@ -99,22 +106,60 @@ export const useClientManagement = () => {
       });
       return;
     }
+
+    // Validate phone number
+    if (!isValidBrazilianPhone(newContact.phone)) {
+      toast({
+        title: "Telefone inválido",
+        description: "Por favor, insira um número de telefone brasileiro válido.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Validate email if provided
+    if (newContact.email && !isValidEmail(newContact.email)) {
+      toast({
+        title: "Email inválido",
+        description: "Por favor, insira um email válido.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Validate CPF/CNPJ if provided
+    if (newContact.cpfCnpj && !isValidDocument(newContact.cpfCnpj)) {
+      toast({
+        title: "CPF/CNPJ inválido",
+        description: "Por favor, insira um CPF ou CNPJ válido.",
+        variant: "destructive"
+      });
+      return;
+    }
     
     try {
+      // Generate automatic sessionid and set default instancia
+      const sessionId = generateUUID();
+      const instancia = "Chatbotideal";
+      const formattedPhone = formatPhoneForEvolution(newContact.phone);
+
       const { data, error } = await supabase
         .from('dados_cliente')
         .insert([
           {
             nome: newContact.name,
             email: newContact.email,
-            telefone: newContact.phone,
+            telefone: formattedPhone,
             endereco: newContact.address,
             cpf_cnpj: newContact.cpfCnpj,
             asaas_customer_id: newContact.asaasCustomerId,
             payments: newContact.payments || null,
             creci: newContact.creci,
             cep: newContact.cep,
-            cidade: newContact.cidade
+            cidade: newContact.cidade,
+            notes: newContact.notes,
+            sessionid: sessionId,
+            instancia: instancia
           }
         ])
         .select();
@@ -138,6 +183,8 @@ export const useClientManagement = () => {
           creci: '',
           cep: '',
           cidade: '',
+          sessionid: '',
+          instancia: '',
         });
         
         setIsAddContactOpen(false);
@@ -147,16 +194,28 @@ export const useClientManagement = () => {
           description: `${newContact.name} foi adicionado com sucesso.`,
         });
         
-        try {
-          await fetch(getEndpoint('criaUsuario'), {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newContact),
+        // Enhanced webhook call with retry logic
+        const webhookData = {
+          ...newContact,
+          phone: formattedPhone,
+          sessionid: sessionId,
+          instancia: instancia,
+          id: newClientData.id
+        };
+        
+        const webhookSuccess = await callWebhookWithRetry(
+          getEndpoint('criaUsuario'), 
+          webhookData
+        );
+        
+        logWebhookResult('criaUsuario', webhookSuccess, webhookData);
+        
+        if (!webhookSuccess) {
+          toast({
+            title: "Aviso",
+            description: "Cliente salvo, mas falha na sincronização com sistema externo. Dados podem precisar ser reprocessados.",
+            variant: "destructive"
           });
-        } catch (webhookError) {
-          console.error('Erro ao enviar para webhook:', webhookError);
         }
       }
     } catch (error) {
@@ -173,19 +232,52 @@ export const useClientManagement = () => {
     if (!selectedContact) return;
     
     try {
+      // Validate phone if changed
+      if (newContact.phone && !isValidBrazilianPhone(newContact.phone)) {
+        toast({
+          title: "Telefone inválido",
+          description: "Por favor, insira um número de telefone brasileiro válido.",
+          variant: "destructive"
+        });
+        return;
+      }
+
+      // Validate email if provided
+      if (newContact.email && !isValidEmail(newContact.email)) {
+        toast({
+          title: "Email inválido", 
+          description: "Por favor, insira um email válido.",
+          variant: "destructive"
+        });
+        return;
+      }
+
+      // Validate CPF/CNPJ if provided
+      if (newContact.cpfCnpj && !isValidDocument(newContact.cpfCnpj)) {
+        toast({
+          title: "CPF/CNPJ inválido",
+          description: "Por favor, insira um CPF ou CNPJ válido.",
+          variant: "destructive"
+        });
+        return;
+      }
+
+      const formattedPhone = newContact.phone ? formatPhoneForEvolution(newContact.phone) : selectedContact.phone;
+
       const { error } = await supabase
         .from('dados_cliente')
         .update({
           nome: newContact.name,
           email: newContact.email,
-          telefone: newContact.phone,
+          telefone: formattedPhone,
           endereco: newContact.address,
           cpf_cnpj: newContact.cpfCnpj,
           asaas_customer_id: newContact.asaasCustomerId,
           payments: newContact.payments,
           creci: newContact.creci,
           cep: newContact.cep,
-          cidade: newContact.cidade
+          cidade: newContact.cidade,
+          notes: newContact.notes
         })
         .eq('id', parseInt(selectedContact.id));
       
@@ -200,19 +292,28 @@ export const useClientManagement = () => {
         description: `As informações de ${selectedContact.name} foram atualizadas.`,
       });
       
-      try {
-        await fetch(getEndpoint('editaUsuario'), {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            id: selectedContact.id,
-            ...newContact
-          }),
+      // Enhanced webhook call
+      const webhookData = {
+        id: selectedContact.id,
+        ...newContact,
+        phone: formattedPhone,
+        sessionid: selectedContact.sessionid,
+        instancia: selectedContact.instancia
+      };
+      
+      const webhookSuccess = await callWebhookWithRetry(
+        getEndpoint('editaUsuario'), 
+        webhookData
+      );
+      
+      logWebhookResult('editaUsuario', webhookSuccess, webhookData);
+      
+      if (!webhookSuccess) {
+        toast({
+          title: "Aviso",
+          description: "Cliente atualizado, mas falha na sincronização com sistema externo.",
+          variant: "destructive"
         });
-      } catch (webhookError) {
-        console.error('Erro ao enviar para webhook:', webhookError);
       }
     } catch (error) {
       console.error('Erro ao atualizar cliente:', error);
@@ -247,16 +348,27 @@ export const useClientManagement = () => {
         variant: "destructive",
       });
       
-      try {
-        await fetch(getEndpoint('excluiUsuario'), {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ phone: selectedContact.phone }),
+      // Enhanced webhook call
+      const phoneForWebhook = selectedContact.phone ? formatPhoneForEvolution(selectedContact.phone) : '';
+      const webhookData = { 
+        phone: phoneForWebhook,
+        sessionid: selectedContact.sessionid,
+        instancia: selectedContact.instancia
+      };
+      
+      const webhookSuccess = await callWebhookWithRetry(
+        getEndpoint('excluiUsuario'), 
+        webhookData
+      );
+      
+      logWebhookResult('excluiUsuario', webhookSuccess, webhookData);
+      
+      if (!webhookSuccess) {
+        toast({
+          title: "Aviso",
+          description: "Cliente removido localmente, mas falha na sincronização com sistema externo.",
+          variant: "destructive"
         });
-      } catch (webhookError) {
-        console.error('Erro ao enviar para webhook:', webhookError);
       }
     } catch (error) {
       console.error('Erro ao excluir cliente:', error);
