@@ -2,7 +2,7 @@
 import React from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
-import { LogOut, PawPrint } from 'lucide-react';
+import { LogOut, Building } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { ThemeToggle } from '@/components/ThemeToggle';
 
@@ -10,11 +10,11 @@ const DashboardHeader = () => {
   const { user, signOut } = useAuth();
   
   return (
-    <header className="bg-petshop-blue dark:bg-gray-800 text-white shadow-md transition-colors duration-300">
+    <header className="bg-black dark:bg-gray-800 text-white shadow-md transition-colors duration-300">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <PawPrint className="h-8 w-8 text-petshop-gold" />
-          <h1 className="text-2xl font-bold">Pet Paradise</h1>
+          <Building className="h-8 w-8" style={{color: 'hsl(80, 100%, 50%)'}} />
+          <h1 className="text-2xl font-bold">Comunidade Imobiliária</h1>
         </div>
         <div className="flex items-center gap-4">
           <Badge variant="outline" className="bg-white/10 text-white border-0 px-3 py-1">

@@ -20,7 +20,7 @@ import { AgendaTypeSelector } from '@/components/schedule/AgendaTypeSelector';
 const mockAppointments: Appointment[] = [
   {
     id: 1,
-    petName: 'Cliente A',
+    petName: 'Membro A',
     ownerName: 'João Silva',
     phone: '(11) 98765-4321',
     date: new Date(2023, 5, 15, 10, 30),
@@ -30,7 +30,7 @@ const mockAppointments: Appointment[] = [
   },
   {
     id: 2,
-    petName: 'Cliente B',
+    petName: 'Membro B',
     ownerName: 'Maria Oliveira',
     phone: '(11) 91234-5678',
     date: new Date(2023, 5, 15, 14, 0),
@@ -40,7 +40,7 @@ const mockAppointments: Appointment[] = [
   },
   {
     id: 3,
-    petName: 'Cliente C',
+    petName: 'Membro C',
     ownerName: 'Pedro Santos',
     phone: '(11) 99876-5432',
     date: new Date(2023, 5, 16, 9, 0),
@@ -50,7 +50,7 @@ const mockAppointments: Appointment[] = [
   },
   {
     id: 4,
-    petName: 'Cliente D',
+    petName: 'Membro D',
     ownerName: 'Ana Costa',
     phone: '(11) 98765-1234',
     date: addDays(new Date(), 1),
@@ -60,7 +60,7 @@ const mockAppointments: Appointment[] = [
   },
   {
     id: 5,
-    petName: 'Cliente E',
+    petName: 'Membro E',
     ownerName: 'Lucas Ferreira',
     phone: '(11) 97654-3210',
     date: addDays(new Date(), 1),
@@ -70,7 +70,7 @@ const mockAppointments: Appointment[] = [
   },
   {
     id: 6,
-    petName: 'Cliente F',
+    petName: 'Membro F',
     ownerName: 'Carla Souza',
     phone: '(11) 98888-7777',
     date: addHours(new Date(), 3),
@@ -80,7 +80,7 @@ const mockAppointments: Appointment[] = [
   },
   {
     id: 7,
-    petName: 'Cliente G',
+    petName: 'Membro G',
     ownerName: 'Roberto Almeida',
     phone: '(11) 99999-8888',
     date: addMinutes(new Date(), 90),

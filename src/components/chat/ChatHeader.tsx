@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import { ArrowLeft, LogOut, PawPrint, Settings } from 'lucide-react';
+import { ArrowLeft, LogOut, Building, Settings } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import ChatStatus from './ChatStatus';
 
@@ -21,7 +21,7 @@ const ChatHeader = ({ signOut }: ChatHeaderProps) => {
   };
 
   return (
-    <header className="bg-petshop-blue dark:bg-gray-800 text-white shadow-md transition-colors duration-300 z-10">
+    <header className="bg-black dark:bg-gray-800 text-white shadow-md transition-colors duration-300 z-10">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex items-center gap-2">
           <Button 
@@ -32,8 +32,8 @@ const ChatHeader = ({ signOut }: ChatHeaderProps) => {
           >
             <ArrowLeft className="h-5 w-5" />
           </Button>
-          <PawPrint className="h-8 w-8 text-petshop-gold" />
-          <h1 className="text-2xl font-bold">Chats</h1>
+          <Building className="h-8 w-8" style={{color: 'hsl(80, 100%, 50%)'}} />
+          <h1 className="text-2xl font-bold">Chats - Comunidade</h1>
         </div>
         <div className="flex items-center gap-4">
           <ChatStatus instanceName="Chatbotideal" isConnected={true} />

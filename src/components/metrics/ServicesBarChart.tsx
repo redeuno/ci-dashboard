@@ -19,7 +19,7 @@ const ServicesBarChart: React.FC<ServicesBarChartProps> = ({ data }) => {
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-gray-800 dark:text-white">
           <Smartphone className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-          Serviços Mais Utilizados
+          Cursos e Mentorias Mais Procurados
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -45,7 +45,7 @@ const ServicesBarChart: React.FC<ServicesBarChartProps> = ({ data }) => {
                   border: 'none',
                 }}
               />
-              <Bar dataKey="value" name="Clientes" fill="#0EA5E9" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="value" name="Participantes" fill="#0EA5E9" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>

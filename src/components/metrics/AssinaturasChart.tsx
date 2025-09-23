@@ -1,36 +1,35 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { PawPrint } from 'lucide-react';
+import { Users } from 'lucide-react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
-interface PetType {
+interface AssinaturaType {
   name: string;
   value: number;
   color: string;
 }
 
-interface PetTypesChartProps {
-  data: PetType[];
+interface AssinaturasChartProps {
+  data: AssinaturaType[];
   loading?: boolean;
 }
 
-const PetTypesChart: React.FC<PetTypesChartProps> = ({ data, loading = false }) => {
+const AssinaturasChart: React.FC<AssinaturasChartProps> = ({ data, loading = false }) => {
   return (
     <Card className="dark:bg-gray-800 transition-all duration-300 hover:shadow-lg">
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-gray-800 dark:text-white">
-          <PawPrint className="h-5 w-5 text-pink-600 dark:text-pink-400" />
-          Tipos de Pets Atendidos
+          <Users className="h-5 w-5 text-pink-600 dark:text-pink-400" />
+          Assinaturas Ativas
         </CardTitle>
       </CardHeader>
       <CardContent>
         {loading ? (
           <div className="h-80 flex items-center justify-center">
-            <div className="w-16 h-16 border-4 border-pink-400 border-t-transparent rounded-full animate-spin"></div>
+            <div className="h-12 w-12 border-4 border-t-transparent border-gray-400 rounded-full animate-spin"></div>
           </div>
-        ) : data.length > 0 ? (
-          <div className="h-80 flex items-center justify-center">
+        ) : data && data.length > 0 ? (
+          <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
@@ -38,8 +37,8 @@ const PetTypesChart: React.FC<PetTypesChartProps> = ({ data, loading = false }) 
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-                  outerRadius={100}
+                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                  outerRadius={80}
                   fill="#8884d8"
                   dataKey="value"
                 >
@@ -48,7 +47,7 @@ const PetTypesChart: React.FC<PetTypesChartProps> = ({ data, loading = false }) 
                   ))}
                 </Pie>
                 <Tooltip 
-                  formatter={(value) => [`${value} pets`, 'Quantidade']}
+                  formatter={(value, name) => [`${value} membros`, name]}
                   contentStyle={{
                     backgroundColor: 'rgba(255, 255, 255, 0.9)',
                     borderRadius: '8px',
@@ -58,6 +57,19 @@ const PetTypesChart: React.FC<PetTypesChartProps> = ({ data, loading = false }) 
                 />
               </PieChart>
             </ResponsiveContainer>
+            <div className="grid grid-cols-2 gap-2 mt-4">
+              {data.map((item, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <div 
+                    className="w-3 h-3 rounded-full"
+                    style={{ backgroundColor: item.color }}
+                  ></div>
+                  <span className="text-sm text-gray-600 dark:text-gray-300">
+                    {item.name}: {item.value}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         ) : (
           <div className="h-80 flex items-center justify-center text-gray-500">
@@ -69,4 +81,4 @@ const PetTypesChart: React.FC<PetTypesChartProps> = ({ data, loading = false }) 
   );
 };
 
-export default PetTypesChart;
+export default AssinaturasChart;

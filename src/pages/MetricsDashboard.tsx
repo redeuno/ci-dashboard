@@ -8,7 +8,7 @@ import { useDashboardRealtime } from '@/hooks/useDashboardRealtime';
 import DashboardHeader from '@/components/metrics/DashboardHeader';
 import StatCard from '@/components/metrics/StatCard';
 import ClientGrowthChart from '@/components/metrics/ClientGrowthChart';
-import PetTypesChart from '@/components/metrics/PetTypesChart';
+import AssinaturasChart from '@/components/metrics/AssinaturasChart';
 import ServicesBarChart from '@/components/metrics/ServicesBarChart';
 import RecentClientsTable from '@/components/metrics/RecentClientsTable';
 
@@ -72,8 +72,8 @@ const MetricsDashboard = () => {
       <main className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl font-bold flex items-center gap-2 text-gray-800 dark:text-white">
-            <LineChart className="h-6 w-6 text-petshop-blue dark:text-blue-400" />
-            Dashboard de Métricas
+            <LineChart className="h-6 w-6 text-black dark:text-lime-400" />
+            Dashboard de Métricas - Comunidade Imobiliária
           </h2>
         </div>
         
@@ -113,7 +113,7 @@ const MetricsDashboard = () => {
         {/* Gráficos e Tabelas */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           <ClientGrowthChart data={monthlyCustomersData} loading={loading} />
-          <PetTypesChart data={serviceTypesData} loading={loading} />
+          <AssinaturasChart data={serviceTypesData} loading={loading} />
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

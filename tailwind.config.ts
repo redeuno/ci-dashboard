@@ -25,10 +25,10 @@ export default {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
-				petshop: {
-					blue: '#1a365d',
-					gold: '#fbbf24',
-					navy: '#172554',
+				comunidade: {
+					primary: '#000000',
+					accent: '#CCFF00',
+					gray: '#333333',
 				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',

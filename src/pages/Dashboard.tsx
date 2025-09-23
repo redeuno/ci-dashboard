@@ -27,8 +27,8 @@ const Dashboard = () => {
   
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-petshop-blue dark:bg-gray-900">
-        <div className="h-16 w-16 border-4 border-t-transparent border-petshop-gold rounded-full animate-spin"></div>
+      <div className="min-h-screen flex items-center justify-center bg-black dark:bg-gray-900">
+        <div className="h-16 w-16 border-4 border-t-transparent rounded-full animate-spin" style={{borderColor: 'hsl(80, 100%, 50%)'}}></div>
       </div>
     );
   }
@@ -39,7 +39,7 @@ const Dashboard = () => {
       
       <main className="container mx-auto px-4 py-12">
         <h2 className="text-2xl font-bold text-center mb-10 text-gray-800 dark:text-gray-100 transition-colors duration-300">
-          Painel Administrativo
+          Painel Administrativo - Comunidade Imobiliária
         </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
