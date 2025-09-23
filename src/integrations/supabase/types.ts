@@ -162,6 +162,7 @@ export type Database = {
           id: number
           instancia: string | null
           nome: string | null
+          notes: string | null
           payments: Json | null
           sessionid: string | null
           telefone: string | null
@@ -178,6 +179,7 @@ export type Database = {
           id?: number
           instancia?: string | null
           nome?: string | null
+          notes?: string | null
           payments?: Json | null
           sessionid?: string | null
           telefone?: string | null
@@ -194,6 +196,7 @@ export type Database = {
           id?: number
           instancia?: string | null
           nome?: string | null
+          notes?: string | null
           payments?: Json | null
           sessionid?: string | null
           telefone?: string | null
@@ -206,18 +209,21 @@ export type Database = {
           embedding: string | null
           id: number
           metadata: Json | null
+          titulo: string | null
         }
         Insert: {
           content?: string | null
           embedding?: string | null
           id?: number
           metadata?: Json | null
+          titulo?: string | null
         }
         Update: {
           content?: string | null
           embedding?: string | null
           id?: number
           metadata?: Json | null
+          titulo?: string | null
         }
         Relationships: []
       }
