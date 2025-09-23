@@ -22,8 +22,8 @@ export interface N8nChatHistory {
   id: number;
   session_id: string;
   message: any; // This can be various formats, we'll parse it properly
-  data: string; // Date in string format
-  hora?: string; // This is the field containing the correct time
+  data: string; // Date in string format (this is the timestamp field)
+  instancia?: string; // Instance name
 }
 
 export interface Conversation {

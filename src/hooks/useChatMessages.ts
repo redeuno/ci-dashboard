@@ -33,7 +33,7 @@ export function useChatMessages(selectedChat: string | null) {
       
       if (historyData && historyData.length > 0) {
         historyData.forEach((chatHistory: N8nChatHistory) => {
-          console.log(`Processing message with hora: ${chatHistory.hora}`);
+          console.log(`Processing message with data: ${chatHistory.data}`);
           const parsedMessages = parseMessage(chatHistory);
           if (parsedMessages.length > 0) {
             allMessages = [...allMessages, ...parsedMessages];
@@ -78,7 +78,7 @@ export function useChatMessages(selectedChat: string | null) {
           
           // Process the new message
           const chatHistory = payload.new as N8nChatHistory;
-          console.log('New message hora field:', chatHistory.hora);
+          console.log('New message data field:', chatHistory.data);
           const newMessages = parseMessage(chatHistory);
           
           if (newMessages.length > 0) {

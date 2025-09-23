@@ -75,9 +75,9 @@ const ConversationList = ({
                   
                   <div className="flex space-x-2 mt-2">
                     <Button
-                      variant="danger"
-                      size="xs"
-                      className="rounded-full px-3 flex items-center gap-1"
+                      variant="outline"
+                      size="sm"
+                      className="rounded-full px-3 flex items-center gap-1 text-red-600 border-red-600 hover:bg-red-50 dark:text-red-400 dark:border-red-400 dark:hover:bg-red-900/20"
                       onClick={(e) => openPauseDialog(conv.phone, e)}
                       disabled={isLoading[`pause-${conv.phone}`]}
                     >
@@ -91,9 +91,9 @@ const ConversationList = ({
                       )}
                     </Button>
                     <Button
-                      variant="success"
-                      size="xs"
-                      className="rounded-full px-3 flex items-center gap-1"
+                      variant="outline"
+                      size="sm"
+                      className="rounded-full px-3 flex items-center gap-1 text-green-600 border-green-600 hover:bg-green-50 dark:text-green-400 dark:border-green-400 dark:hover:bg-green-900/20"
                       onClick={(e) => startBot(conv.phone, e)}
                       disabled={isLoading[`start-${conv.phone}`]}
                     >
