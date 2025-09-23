@@ -227,6 +227,39 @@ export type Database = {
         }
         Relationships: []
       }
+      evolution_instances: {
+        Row: {
+          connection_confirmed: boolean | null
+          created_at: string | null
+          id: number
+          name: string
+          qr_code_data: string | null
+          status: string | null
+          updated_at: string | null
+          webhook_path: string
+        }
+        Insert: {
+          connection_confirmed?: boolean | null
+          created_at?: string | null
+          id?: number
+          name: string
+          qr_code_data?: string | null
+          status?: string | null
+          updated_at?: string | null
+          webhook_path: string
+        }
+        Update: {
+          connection_confirmed?: boolean | null
+          created_at?: string | null
+          id?: number
+          name?: string
+          qr_code_data?: string | null
+          status?: string | null
+          updated_at?: string | null
+          webhook_path?: string
+        }
+        Relationships: []
+      }
       imagens_drive: {
         Row: {
           created_at: string | null

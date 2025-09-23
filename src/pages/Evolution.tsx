@@ -1,25 +1,37 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Link, PawPrint, Plus, QrCode, Loader2, RefreshCw, Check } from 'lucide-react';
+import { ArrowLeft, Link, PawPrint, Plus, QrCode, Loader2, RefreshCw, Check, List } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/context/AuthContext';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { getEndpoint } from '@/utils/endpoints';
+import { useEvolutionInstances, EvolutionInstance } from '@/hooks/useEvolutionInstances';
+import InstancesList from '@/components/evolution/InstancesList';
 
 const Evolution = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { toast } = useToast();
+  const { 
+    instances, 
+    loading: instancesLoading, 
+    createInstance: createInstanceInDB,
+    updateInstanceStatus,
+    deleteInstance
+  } = useEvolutionInstances();
+  
   const [instanceName, setInstanceName] = useState('');
   const [webhookPath, setWebhookPath] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [qrCodeData, setQrCodeData] = useState<string | null>(null);
   const [confirmationStatus, setConfirmationStatus] = useState<'waiting' | 'confirmed' | 'failed' | null>(null);
+  const [selectedInstance, setSelectedInstance] = useState<EvolutionInstance | null>(null);
   const statusCheckIntervalRef = useRef<number | null>(null);
   const retryCountRef = useRef<number>(0);
   const maxRetries = 3;
@@ -76,6 +88,12 @@ const Evolution = () => {
             }
             setConfirmationStatus('confirmed');
             retryCountRef.current = 0; // Reset retry counter on success
+            
+            // Update instance status in database
+            if (selectedInstance) {
+              await updateInstanceStatus(selectedInstance.id, 'connected', true);
+            }
+            
             toast({
               title: "Conexão estabelecida!",
               description: "Seu WhatsApp foi conectado com sucesso.",
@@ -93,6 +111,12 @@ const Evolution = () => {
               }
               setConfirmationStatus('failed');
               retryCountRef.current = 0; // Reset retry counter
+              
+              // Update instance status in database
+              if (selectedInstance) {
+                await updateInstanceStatus(selectedInstance.id, 'disconnected', false);
+              }
+              
               toast({
                 title: "Falha na conexão",
                 description: "Não foi possível conectar após várias tentativas. Obtendo novo QR code...",
@@ -223,10 +247,15 @@ const Evolution = () => {
     setIsLoading(true);
     setQrCodeData(null);
     setConfirmationStatus(null);
-    retryCountRef.current = 0; // Reset retry counter for new instance creation
+    retryCountRef.current = 0;
     
     try {
       console.log('Creating instance:', { instanceName, webhookPath });
+      
+      // Create instance in database first
+      const dbInstance = await createInstanceInDB(instanceName, webhookPath);
+      setSelectedInstance(dbInstance);
+      
       const response = await fetch(getEndpoint('instanciaEvolution'), {
         method: 'POST',
         headers: {
@@ -264,10 +293,22 @@ const Evolution = () => {
       } else {
         const errorText = await response.text();
         console.error('Falha ao criar instância:', errorText);
+        
+        // Update instance status to failed in database
+        if (selectedInstance) {
+          await updateInstanceStatus(selectedInstance.id, 'disconnected', false);
+        }
+        
         throw new Error('Falha ao criar instância');
       }
     } catch (error) {
       console.error('Erro ao criar instância:', error);
+      
+      // Update instance status to failed in database
+      if (selectedInstance) {
+        await updateInstanceStatus(selectedInstance.id, 'disconnected', false);
+      }
+      
       toast({
         title: "Erro",
         description: "Não foi possível criar a instância. Tente novamente.",
@@ -295,6 +336,14 @@ const Evolution = () => {
       clearInterval(statusCheckIntervalRef.current);
       statusCheckIntervalRef.current = null;
     }
+  };
+
+  const handleReconnectInstance = (instance: EvolutionInstance) => {
+    console.log('Reconnecting instance:', instance.name);
+    setInstanceName(instance.name);
+    setWebhookPath(instance.webhook_path);
+    setSelectedInstance(instance);
+    handleCreateInstance();
   };
   
   return (
@@ -330,19 +379,51 @@ const Evolution = () => {
           </h2>
         </div>
         
-        <div className="max-w-xl mx-auto">
-          <Card className="dark:bg-gray-800 shadow-lg border-green-100 dark:border-green-900/30">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-green-600 dark:text-green-400">
-                {qrCodeData ? (
-                  <QrCode className="h-5 w-5" />
-                ) : (
-                  <Plus className="h-5 w-5" />
-                )}
-                {qrCodeData ? "Conectar WhatsApp" : "Criar Nova Instância"}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
+        <div className="max-w-6xl mx-auto">
+          <Tabs defaultValue="instances" className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="instances">
+                <List className="h-4 w-4 mr-2" />
+                Instâncias Existentes
+              </TabsTrigger>
+              <TabsTrigger value="create">
+                <Plus className="h-4 w-4 mr-2" />
+                Nova Instância
+              </TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="instances" className="mt-6">
+              <Card className="dark:bg-gray-800 shadow-lg">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+                    <List className="h-5 w-5" />
+                    Instâncias Evolution
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <InstancesList
+                    instances={instances}
+                    loading={instancesLoading}
+                    onDelete={deleteInstance}
+                    onReconnect={handleReconnectInstance}
+                  />
+                </CardContent>
+              </Card>
+            </TabsContent>
+            
+            <TabsContent value="create" className="mt-6">
+              <Card className="dark:bg-gray-800 shadow-lg border-green-100 dark:border-green-900/30 max-w-xl mx-auto">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-green-600 dark:text-green-400">
+                    {qrCodeData ? (
+                      <QrCode className="h-5 w-5" />
+                    ) : (
+                      <Plus className="h-5 w-5" />
+                    )}
+                    {qrCodeData ? "Conectar WhatsApp" : "Criar Nova Instância"}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
               {qrCodeData ? (
                 <div className="space-y-6 text-center">
                   {confirmationStatus === 'waiting' ? (
@@ -479,8 +560,10 @@ const Evolution = () => {
                   </div>
                 </>
               )}
-            </CardContent>
-          </Card>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
         </div>
       </main>
     </div>

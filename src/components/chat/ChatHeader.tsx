@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import { ArrowLeft, LogOut, PawPrint } from 'lucide-react';
+import { ArrowLeft, LogOut, PawPrint, Settings } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
+import ChatStatus from './ChatStatus';
 
 interface ChatHeaderProps {
   signOut: () => void;
@@ -35,9 +36,19 @@ const ChatHeader = ({ signOut }: ChatHeaderProps) => {
           <h1 className="text-2xl font-bold">Chats</h1>
         </div>
         <div className="flex items-center gap-4">
+          <ChatStatus instanceName="Chatbotideal" isConnected={true} />
           <Badge variant="outline" className="bg-white/10 text-white border-0 px-3 py-1">
             {user?.user_metadata?.name || user?.email}
           </Badge>
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={() => navigate('/evolution')}
+            className="text-white hover:bg-blue-700 dark:hover:bg-gray-700"
+            title="Gerenciar Instâncias Evolution"
+          >
+            <Settings className="h-5 w-5" />
+          </Button>
           <ThemeToggle />
           <Button variant="outline" onClick={signOut} className="border-white text-white bg-gray-950/50 hover:bg-gray-800 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600">
             <LogOut className="mr-2 h-4 w-4" />

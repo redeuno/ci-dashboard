@@ -33,7 +33,11 @@ export function useRealtimeUpdates({
           
           // First update the last message in the conversation list
           updateConversationLastMessage(sessionId)
-            .then(() => console.log(`Updated last message for conversation: ${sessionId}`))
+            .then(() => {
+              console.log(`Updated last message for conversation: ${sessionId}`);
+              // Also refresh the full conversations list to ensure real-time sync
+              fetchConversations();
+            })
             .catch(error => console.error(`Error updating conversation: ${error}`));
         }
       )

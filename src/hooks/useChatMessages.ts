@@ -83,11 +83,26 @@ export function useChatMessages(selectedChat: string | null) {
           
           if (newMessages.length > 0) {
             console.log("Adding new messages from realtime:", newMessages);
-            setMessages(prevMessages => [...prevMessages, ...newMessages]);
+            setMessages(prevMessages => {
+              const allMessages = [...prevMessages, ...newMessages];
+              // Remove duplicates based on timestamp and content
+              const uniqueMessages = allMessages.filter((message, index, arr) => 
+                arr.findIndex(m => 
+                  m.timestamp === message.timestamp && 
+                  m.content === message.content && 
+                  m.role === message.role
+                ) === index
+              );
+              return uniqueMessages.sort((a, b) => 
+                new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+              );
+            });
           }
         }
       )
-      .subscribe();
+      .subscribe((status) => {
+        console.log('Real-time subscription status:', status);
+      });
     
     console.log(`Realtime subscription created for chat: ${selectedChat}`);
       
