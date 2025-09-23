@@ -124,7 +124,7 @@ export async function addCalendarEvent(formData: EventFormData, agendaType: Agen
       email
     };
     
-    console.log(`Adding ${agendaType} event with payload:`, payload);
+    console.log(`[API] Adding ${agendaType} event:`, payload);
     
     const response = await fetch(getApiUrl('adicionar', agendaType), {
       method: 'POST',
@@ -134,15 +134,21 @@ export async function addCalendarEvent(formData: EventFormData, agendaType: Agen
       body: JSON.stringify(payload),
     });
     
+    const responseText = await response.text();
+    console.log(`[API] Add event response for ${agendaType}:`, { 
+      status: response.status, 
+      statusText: response.statusText, 
+      responseBody: responseText 
+    });
+    
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      console.error(`[API] Failed to add event to ${agendaType}:`, response.status, response.statusText, responseText);
+      return false;
     }
     
-    toast.success("Evento adicionado com sucesso!");
     return true;
   } catch (err) {
-    console.error(`Error adding ${agendaType} event:`, err);
-    toast.error("Erro ao adicionar evento. Tente novamente.");
+    console.error(`[API] Error adding ${agendaType} event:`, err);
     return false;
   }
 }
@@ -166,7 +172,7 @@ export async function editCalendarEvent(eventId: string, formData: EventFormData
       email
     };
     
-    console.log(`Updating ${agendaType} event with payload:`, payload);
+    console.log(`[API] Updating ${agendaType} event ${eventId}:`, payload);
     
     const response = await fetch(getApiUrl('alterar', agendaType), {
       method: 'POST',
@@ -176,15 +182,27 @@ export async function editCalendarEvent(eventId: string, formData: EventFormData
       body: JSON.stringify(payload),
     });
     
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+    const responseText = await response.text();
+    console.log(`[API] Edit event response for ${eventId} in ${agendaType}:`, { 
+      status: response.status, 
+      statusText: response.statusText, 
+      responseBody: responseText 
+    });
+    
+    // Check if response indicates event not found
+    if (response.status === 404 || responseText.includes('Not Found') || responseText.includes('notFound')) {
+      console.warn(`[API] Event ${eventId} not found in ${agendaType} - may have been already deleted`);
+      return false;
     }
     
-    toast.success("Evento atualizado com sucesso!");
+    if (!response.ok) {
+      console.error(`[API] Failed to edit event ${eventId} in ${agendaType}:`, response.status, response.statusText, responseText);
+      return false;
+    }
+    
     return true;
   } catch (err) {
-    console.error(`Error updating ${agendaType} event:`, err);
-    toast.error("Erro ao atualizar evento. Tente novamente.");
+    console.error(`[API] Error updating ${agendaType} event ${eventId}:`, err);
     return false;
   }
 }
@@ -196,7 +214,7 @@ export async function deleteCalendarEvent(eventId: string, agendaType: AgendaTyp
       id: eventId
     };
     
-    console.log(`Deleting ${agendaType} event with payload:`, payload);
+    console.log(`[API] Deleting ${agendaType} event ${eventId}:`, payload);
     
     const response = await fetch(getApiUrl('excluir', agendaType), {
       method: 'POST',
@@ -206,15 +224,27 @@ export async function deleteCalendarEvent(eventId: string, agendaType: AgendaTyp
       body: JSON.stringify(payload),
     });
     
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+    const responseText = await response.text();
+    console.log(`[API] Delete event response for ${eventId} in ${agendaType}:`, { 
+      status: response.status, 
+      statusText: response.statusText, 
+      responseBody: responseText 
+    });
+    
+    // Check if response indicates event not found
+    if (response.status === 404 || responseText.includes('Not Found') || responseText.includes('notFound')) {
+      console.warn(`[API] Event ${eventId} not found in ${agendaType} - may have been already deleted`);
+      return false;
     }
     
-    toast.success("Evento excluído com sucesso!");
+    if (!response.ok) {
+      console.error(`[API] Failed to delete event ${eventId} from ${agendaType}:`, response.status, response.statusText, responseText);
+      return false;
+    }
+    
     return true;
   } catch (err) {
-    console.error(`Error deleting ${agendaType} event:`, err);
-    toast.error("Erro ao excluir evento. Tente novamente.");
+    console.error(`[API] Error deleting ${agendaType} event ${eventId}:`, err);
     return false;
   }
 }

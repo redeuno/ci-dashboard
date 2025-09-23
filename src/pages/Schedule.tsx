@@ -105,7 +105,7 @@ const Schedule = () => {
     isLoading: isEventsLoading,
     error: eventsError,
     lastUpdated,
-    refreshEventsPost,
+    refreshEvents, // Use GET method for refresh button
     addEvent,
     editEvent,
     deleteEvent,
@@ -310,7 +310,7 @@ const Schedule = () => {
           <div className="flex items-center gap-2">
             <Button 
               variant="outline" 
-              onClick={refreshEventsPost} 
+              onClick={refreshEvents} 
               className="flex items-center gap-2" 
               disabled={isEventsLoading}
             >
