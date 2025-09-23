@@ -59,7 +59,7 @@ export const useClientManagement = () => {
           asaasCustomerId: client.asaas_customer_id,
           payments: client.payments,
           status: 'Active',
-          notes: client.notes || '',
+          notes: (client as any).notes || '',
           lastContact: client.created_at ? new Date(client.created_at).toLocaleDateString('pt-BR') : 'Desconhecido',
           creci: client.creci,
           cep: client.cep,
