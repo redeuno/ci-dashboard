@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 
 // Import centralized endpoints
@@ -79,7 +80,17 @@ const ConfigurationManager = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Configurações do Sistema</h1>
+        <div className="flex items-center gap-4">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={() => navigate('/dashboard')}
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Voltar ao Dashboard
+          </Button>
+          <h1 className="text-2xl font-bold">Configurações do Sistema</h1>
+        </div>
         <Button onClick={handleSave} className="bg-blue-600 hover:bg-blue-700">
           Salvar Alterações
         </Button>

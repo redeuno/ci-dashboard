@@ -60,7 +60,7 @@ const ClientDetailSheet = ({
       <SheetContent className="sm:max-w-md">
         <SheetHeader>
           <SheetTitle className="text-xl flex items-center gap-2">
-            <User className="h-5 w-5 text-petshop-blue dark:text-petshop-gold" />
+            <User className="h-5 w-5 text-ci-primary dark:text-ci-accent" />
             {selectedContact.name}
           </SheetTitle>
           <SheetDescription>

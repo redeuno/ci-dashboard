@@ -55,8 +55,8 @@ const ClientsDashboard = () => {
   }, [user, isLoading, navigate]);
 
   if (isLoading) {
-    return <div className="min-h-screen flex items-center justify-center bg-petshop-blue dark:bg-gray-900">
-      <div className="h-16 w-16 border-4 border-t-transparent border-petshop-gold rounded-full animate-spin"></div>
+    return <div className="min-h-screen flex items-center justify-center bg-black dark:bg-gray-900">
+      <div className="h-16 w-16 border-4 border-t-transparent rounded-full animate-spin" style={{borderColor: 'hsl(80, 100%, 50%)'}}></div>
     </div>;
   }
 

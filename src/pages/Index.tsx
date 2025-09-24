@@ -122,7 +122,7 @@ const Index = () => {
       
       <div className="absolute inset-0 z-0">
         <img 
-          src="/lovable-uploads/7a96682a-47a3-4ed0-8036-8a31ad28cb4b.png" 
+          src="/src/assets/real-estate-bg.jpg" 
           alt="Imobiliário background" 
           className="w-full h-full object-cover transition-opacity duration-1000 opacity-80"
         />

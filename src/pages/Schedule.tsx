@@ -144,7 +144,7 @@ const Schedule = () => {
   if (isAuthLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
-        <div className="h-16 w-16 border-4 border-t-transparent border-petshop-gold rounded-full animate-spin"></div>
+        <div className="h-16 w-16 border-4 border-t-transparent rounded-full animate-spin" style={{borderColor: 'hsl(80, 100%, 50%)'}}></div>
       </div>
     );
   }

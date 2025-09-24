@@ -48,7 +48,7 @@ const ClientsTable = ({
             <TableRow>
               <TableCell colSpan={6} className="h-24 text-center">
                 <div className="flex justify-center">
-                  <div className="h-8 w-8 border-4 border-t-transparent border-petshop-blue rounded-full animate-spin"></div>
+                  <div className="h-8 w-8 border-4 border-t-transparent border-ci-primary rounded-full animate-spin"></div>
                 </div>
                 <p className="mt-2 text-gray-500">Carregando clientes...</p>
               </TableCell>

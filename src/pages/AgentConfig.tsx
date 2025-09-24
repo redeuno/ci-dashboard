@@ -67,13 +67,13 @@ const predefinedAgents: Agent[] = [
   {
     id: '1',
     name: 'Nina',
-    company: 'Pet Paradise',
-    industry: 'Pet Shop',
-    mainProduct: 'Produtos premium para pets e serviços de banho e tosa',
+    company: 'Comunidade Imobiliária',
+    industry: 'Imobiliário',
+    mainProduct: 'Cursos e mentorias para imobiliário',
     strategy: 'Personalizado, prático e voltado para um atendimento premium',
-    personality: 'Amigável, amorosa com os pets, detalhista e conhecedora de animais',
+    personality: 'Amigável, especialista em mercado imobiliário, detalhista e conhecedora do setor',
     objective: 'Aumentar vendas e satisfação dos clientes',
-    thinkingStyle: 'Uma especialista em animais que ama pets',
+    thinkingStyle: 'Uma especialista em mercado imobiliário que ama ajudar pessoas',
     isActive: true
   },
   {
@@ -462,7 +462,7 @@ const AgentConfig = () => {
                     <FormItem>
                       <FormLabel>Qual é o nome da nova empresa?</FormLabel>
                       <FormControl>
-                        <Input placeholder="Ex: Pet Paradise, Casa & Lar, Sabor Gourmet" {...field} />
+                        <Input placeholder="Ex: Comunidade Imobiliária, Casa & Lar, Imobiliária Premium" {...field} />
                       </FormControl>
                       <FormDescription>
                         O nome da empresa que o agente irá representar.
