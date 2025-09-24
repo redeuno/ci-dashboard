@@ -17,78 +17,8 @@ import { EventsCard } from '@/components/schedule/EventsCard';
 import { AppointmentsSection } from '@/components/schedule/AppointmentsSection';
 import { AgendaTypeSelector } from '@/components/schedule/AgendaTypeSelector';
 
-const mockAppointments: Appointment[] = [
-  {
-    id: 1,
-    petName: 'Membro A',
-    ownerName: 'João Silva',
-    phone: '(11) 98765-4321',
-    date: new Date(2023, 5, 15, 10, 30),
-    service: 'Mentoria CI',
-    status: 'confirmado',
-    notes: 'Primeira sessão de mentoria'
-  },
-  {
-    id: 2,
-    petName: 'Membro B',
-    ownerName: 'Maria Oliveira',
-    phone: '(11) 91234-5678',
-    date: new Date(2023, 5, 15, 14, 0),
-    service: 'Venda CI',
-    status: 'pendente',
-    notes: 'Revisar estratégias de venda'
-  },
-  {
-    id: 3,
-    petName: 'Membro C',
-    ownerName: 'Pedro Santos',
-    phone: '(11) 99876-5432',
-    date: new Date(2023, 5, 16, 9, 0),
-    service: 'Mentoria CI',
-    status: 'confirmado',
-    notes: ''
-  },
-  {
-    id: 4,
-    petName: 'Membro D',
-    ownerName: 'Ana Costa',
-    phone: '(11) 98765-1234',
-    date: addDays(new Date(), 1),
-    service: 'Venda CI',
-    status: 'confirmado',
-    notes: 'Apresentação de produtos'
-  },
-  {
-    id: 5,
-    petName: 'Membro E',
-    ownerName: 'Lucas Ferreira',
-    phone: '(11) 97654-3210',
-    date: addDays(new Date(), 1),
-    service: 'Mentoria CI',
-    status: 'pendente',
-    notes: ''
-  },
-  {
-    id: 6,
-    petName: 'Membro F',
-    ownerName: 'Carla Souza',
-    phone: '(11) 98888-7777',
-    date: addHours(new Date(), 3),
-    service: 'Venda CI',
-    status: 'confirmado',
-    notes: 'Chegará 15 minutos antes'
-  },
-  {
-    id: 7,
-    petName: 'Membro G',
-    ownerName: 'Roberto Almeida',
-    phone: '(11) 99999-8888',
-    date: addMinutes(new Date(), 90),
-    service: 'Mentoria CI',
-    status: 'confirmado',
-    notes: ''
-  }
-];
+// Real appointments will be fetched from the database
+const mockAppointments: Appointment[] = [];
 
 const Schedule = () => {
   const { user, isLoading: isAuthLoading } = useAuth();

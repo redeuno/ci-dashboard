@@ -17,19 +17,19 @@ const ConfigCard = () => {
       className="cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl dark:bg-gray-800 dark:border-gray-700 dark:text-white" 
       onClick={handleClick}
     >
-      <CardHeader className="pb-2 bg-gradient-to-r from-slate-500 to-slate-600 dark:from-slate-600 dark:to-slate-700 text-white rounded-t-lg">
+      <CardHeader className="pb-2 bg-gradient-to-r from-black to-gray-800 dark:from-gray-800 dark:to-gray-900 text-white rounded-t-lg">
         <CardTitle className="flex items-center gap-2">
           <Settings2 className="h-6 w-6" />
           Configurações
         </CardTitle>
-        <CardDescription className="text-slate-100">
+        <CardDescription className="text-gray-200">
           Gerenciamento de endpoints
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-6">
         <div className="mb-4 flex justify-center">
-          <div className="bg-slate-100 dark:bg-slate-900/30 p-6 rounded-full">
-            <Settings2 className="h-14 w-14 text-slate-500 dark:text-slate-400 animate-spin-slow" />
+          <div className="bg-gray-100 dark:bg-gray-900/30 p-6 rounded-full">
+            <Settings2 className="h-14 w-14 animate-spin-slow" style={{color: 'hsl(80, 100%, 50%)'}} />
           </div>
         </div>
         <p className="text-gray-600 dark:text-gray-300 text-center">
@@ -37,7 +37,7 @@ const ConfigCard = () => {
         </p>
       </CardContent>
       <CardFooter className="bg-gray-50 dark:bg-gray-700/50 rounded-b-lg border-t dark:border-gray-700 flex justify-center py-3">
-        <Badge variant="outline" className="bg-slate-50 dark:bg-slate-900/30 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/50">
+        <Badge variant="outline" className="text-black dark:text-gray-300" style={{backgroundColor: 'hsl(80, 100%, 50%)'}}>
           Gerenciar configurações
         </Badge>
       </CardFooter>

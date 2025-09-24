@@ -26,7 +26,7 @@ const Logo: React.FC<LogoProps> = ({
       className
     )}>
       <img 
-        src="/lovable-uploads/ci-logo.png" 
+        src="/lovable-uploads/7a96682a-47a3-4ed0-8036-8a31ad28cb4b.png" 
         alt="Comunidade Imobiliária Logo" 
         className="w-full h-full object-contain" 
       />

@@ -49,11 +49,11 @@ const MetricsDashboard = () => {
       ];
 
   const realEstateServicesData = [
-    { name: 'Mentoria CI', value: 45 },
-    { name: 'Venda CI', value: 35 },
-    { name: 'Consultoria', value: 20 },
-    { name: 'Avaliação', value: 30 },
-    { name: 'Documentação', value: 25 },
+    { name: 'Mentoria CI', value: 0 },
+    { name: 'Venda CI', value: 0 },
+    { name: 'Consultoria', value: 0 },
+    { name: 'Avaliação', value: 0 },
+    { name: 'Documentação', value: 0 },
   ];
   
       // Use real client data from the database
