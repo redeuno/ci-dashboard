@@ -14,9 +14,9 @@ const Logo: React.FC<LogoProps> = ({
   animated = true
 }) => {
   const sizes = {
-    sm: 'w-20 h-20',
-    md: 'w-28 h-28',
-    lg: 'w-36 h-36'
+    sm: 'w-24 h-auto',
+    md: 'w-32 h-auto',
+    lg: 'w-48 h-auto'
   };
 
   return (
@@ -26,7 +26,7 @@ const Logo: React.FC<LogoProps> = ({
       className
     )}>
       <img 
-        src="/lovable-uploads/ci-logo.png" 
+        src="/lovable-uploads/7a96682a-47a3-4ed0-8036-8a31ad28cb4b.png" 
         alt="Comunidade Imobiliária Logo" 
         className="w-full h-full object-contain" 
       />

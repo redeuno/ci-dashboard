@@ -45,7 +45,9 @@ const MetricsDashboard = () => {
   const serviceTypesData = stats.serviceTypes?.length > 0 
     ? stats.serviceTypes 
     : [
-        { name: 'Não especificado', value: 100, color: '#8B5CF6' }
+        { name: 'Venda', value: 0, color: '#8B5CF6' },
+        { name: 'Locação', value: 0, color: '#F59E0B' },
+        { name: 'Mentoria', value: 0, color: '#10B981' }
       ];
 
   const realEstateServicesData = [
@@ -59,9 +61,7 @@ const MetricsDashboard = () => {
       // Use real client data from the database
       const recentClientsData = stats.recentClients?.length > 0
         ? stats.recentClients
-        : [
-            { id: 1, name: 'Carregando...', phone: '...', city: '...', lastVisit: '...' }
-          ];
+        : [];
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300">

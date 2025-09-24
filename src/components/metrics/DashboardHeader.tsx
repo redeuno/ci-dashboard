@@ -24,9 +24,9 @@ const DashboardHeader: React.FC = () => {
             <ArrowLeft className="h-5 w-5" />
           </Button>
           <img 
-            src="/lovable-uploads/ci-logo.png" 
+            src="/lovable-uploads/bc852a02-f2b9-4981-a30c-7c19e7e2829c.png" 
             alt="Comunidade Imobiliária Logo" 
-            className="h-8 w-8 object-contain" 
+            className="h-10 w-auto object-contain" 
           />
           <h1 className="text-2xl font-bold">Comunidade Imobiliária</h1>
         </div>

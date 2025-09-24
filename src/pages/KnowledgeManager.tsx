@@ -56,9 +56,9 @@ const KnowledgeManager = () => {
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
             <img 
-              src="/lovable-uploads/ci-logo.png" 
+              src="/lovable-uploads/bc852a02-f2b9-4981-a30c-7c19e7e2829c.png" 
               alt="Comunidade Imobiliária Logo" 
-              className="h-8 w-8 object-contain" 
+              className="h-10 w-auto object-contain" 
             />
             <h1 className="text-2xl font-bold">Comunidade Imobiliária</h1>
           </div>
