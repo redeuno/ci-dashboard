@@ -111,9 +111,9 @@ export function useConversations() {
             avatar: '👤',
             phone: client.telefone,
             email: client.email || 'Sem email',
-            petName: client.nome_pet || 'Não informado',
-            petType: client.porte_pet || 'Não informado',
-            petBreed: client.raca_pet || 'Não informado',
+            propertyType: client.tipo_imovel || 'Não informado',
+            propertyLocation: client.localizacao_imovel || 'Não informado',
+            priceRange: client.faixa_preco || 'Não informado',
             sessionId: client.sessionid
           };
         });

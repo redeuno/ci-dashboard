@@ -32,7 +32,11 @@ const ChatHeader = ({ signOut }: ChatHeaderProps) => {
           >
             <ArrowLeft className="h-5 w-5" />
           </Button>
-          <Building className="h-8 w-8" style={{color: 'hsl(80, 100%, 50%)'}} />
+          <img 
+            src="/lovable-uploads/ci-logo.png" 
+            alt="Comunidade Imobiliária Logo" 
+            className="h-8 w-8 object-contain" 
+          />
           <h1 className="text-2xl font-bold">Chats - Comunidade</h1>
         </div>
         <div className="flex items-center gap-4">

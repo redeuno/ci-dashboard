@@ -445,7 +445,7 @@ const AgentConfig = () => {
                     <FormItem>
                       <FormLabel>Qual é o nicho ou indústria para este prompt?</FormLabel>
                       <FormControl>
-                        <Input placeholder="Ex: Pet Shop, Imobiliária, Restaurante" {...field} />
+                        <Input placeholder="Ex: Imobiliária, Construtora, Corretora" {...field} />
                       </FormControl>
                       <FormDescription>
                         O setor ou segmento de mercado onde o agente irá atuar.
@@ -480,8 +480,8 @@ const AgentConfig = () => {
                       <FormLabel>Qual é o principal produto ou serviço oferecido?</FormLabel>
                       <FormControl>
                         <Textarea 
-                          placeholder="Ex: Produtos para pets, Venda de imóveis, Refeições gourmet" 
-                          {...field} 
+                          placeholder="Ex: Venda de imóveis, Aluguel residencial, Investimentos imobiliários" 
+                          {...field}
                         />
                       </FormControl>
                       <FormDescription>
@@ -577,8 +577,8 @@ const AgentConfig = () => {
                       <FormLabel>O agente deve pensar como quem?</FormLabel>
                       <FormControl>
                         <Input 
-                          placeholder="Ex: Uma especialista em animais que ama pets" 
-                          {...field} 
+                          placeholder="Ex: Uma especialista em imóveis que ama ajudar clientes" 
+                          {...field}
                         />
                       </FormControl>
                       <FormDescription>

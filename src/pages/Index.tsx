@@ -150,6 +150,13 @@ const Index = () => {
             className="glass-card dark:bg-gray-800/40 rounded-2xl p-8 space-y-6 animate-fade-in"
             style={{ backdropFilter: "blur(16px)" }}
           >
+            <div className="flex justify-center mb-4 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+              <img 
+                src="/lovable-uploads/ci-logo.png" 
+                alt="Comunidade Imobiliária Logo" 
+                className="h-16 w-16 object-contain" 
+              />
+            </div>
             <h1 className="text-2xl font-bold text-white text-center mb-2 animate-slide-up" style={{ animationDelay: '0.2s' }}>
               Bem-vindo à Comunidade Imobiliária!
             </h1>

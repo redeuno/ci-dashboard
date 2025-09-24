@@ -55,10 +55,10 @@ export function AppointmentsSection({
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="petName">Nome do Cliente</Label>
-                <Input id="petName" value={formData.petName} onChange={e => setFormData({
+                <Label htmlFor="clientName">Nome do Cliente</Label>
+                <Input id="clientName" value={formData.clientName} onChange={e => setFormData({
                 ...formData,
-                petName: e.target.value
+                clientName: e.target.value
               })} required />
               </div>
               
@@ -145,10 +145,10 @@ export function AppointmentsSection({
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="edit-petName">Nome do Cliente</Label>
-                <Input id="edit-petName" value={formData.petName} onChange={e => setFormData({
+                <Label htmlFor="edit-clientName">Nome do Cliente</Label>
+                <Input id="edit-clientName" value={formData.clientName} onChange={e => setFormData({
                 ...formData,
-                petName: e.target.value
+                clientName: e.target.value
               })} required />
               </div>
               
@@ -234,7 +234,7 @@ export function AppointmentsSection({
           
           {currentAppointment && (
             <div className="py-4">
-              <p><strong>Cliente:</strong> {currentAppointment.petName}</p>
+              <p><strong>Cliente:</strong> {currentAppointment.clientName}</p>
               <p><strong>Responsável:</strong> {currentAppointment.ownerName}</p>
               <p><strong>Data/Hora:</strong> {format(currentAppointment.date, "dd/MM/yyyy 'às' HH:mm", {
                 locale: pt

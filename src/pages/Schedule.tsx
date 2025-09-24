@@ -48,7 +48,7 @@ const Schedule = () => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [currentAppointment, setCurrentAppointment] = useState<Appointment | null>(null);
   const [formData, setFormData] = useState<AppointmentFormData>({
-    petName: '',
+    clientName: '',
     ownerName: '',
     phone: '',
     date: new Date(),
@@ -89,8 +89,8 @@ const Schedule = () => {
   }).filter(appointment => {
     if (!searchTerm) return true;
     const searchLower = searchTerm.toLowerCase();
-                  return appointment.petName.toLowerCase().includes(searchLower) || 
-                         appointment.ownerName.toLowerCase().includes(searchLower) || 
+                  return appointment.clientName.toLowerCase().includes(searchLower) || 
+                         appointment.ownerName.toLowerCase().includes(searchLower) ||
                          appointment.phone.includes(searchTerm) || 
                          appointment.service.toLowerCase().includes(searchLower);
   }).sort((a, b) => a.date.getTime() - b.date.getTime());
@@ -132,7 +132,7 @@ const Schedule = () => {
       setIsAddDialogOpen(false);
     }
     setFormData({
-      petName: '',
+      clientName: '',
       ownerName: '',
       phone: '',
       date: new Date(),
@@ -145,7 +145,7 @@ const Schedule = () => {
   const handleEditClick = (appointment: Appointment) => {
     setCurrentAppointment(appointment);
     setFormData({
-      petName: appointment.petName,
+      clientName: appointment.clientName,
       ownerName: appointment.ownerName,
       phone: appointment.phone,
       date: appointment.date,

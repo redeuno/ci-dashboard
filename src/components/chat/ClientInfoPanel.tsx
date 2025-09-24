@@ -37,7 +37,7 @@ const ClientInfoPanel = ({ selectedChat, selectedConversation }: ClientInfoPanel
           <Tabs defaultValue="info">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="info">Informações</TabsTrigger>
-              <TabsTrigger value="pet">Pet</TabsTrigger>
+              <TabsTrigger value="property">Imóvel</TabsTrigger>
             </TabsList>
             
             <TabsContent value="info" className="mt-4 space-y-4">
@@ -62,20 +62,20 @@ const ClientInfoPanel = ({ selectedChat, selectedConversation }: ClientInfoPanel
               </Card>
             </TabsContent>
             
-            <TabsContent value="pet" className="mt-4 space-y-4">
+            <TabsContent value="property" className="mt-4 space-y-4">
               <Card className="p-4">
-                <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Nome do Pet</h3>
-                <p>{selectedConversation?.petName || 'Não informado'}</p>
+                <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Tipo de Imóvel</h3>
+                <p>{selectedConversation?.propertyType || 'Não informado'}</p>
               </Card>
               
               <Card className="p-4">
-                <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Porte</h3>
-                <p>{selectedConversation?.petType || 'Não informado'}</p>
+                <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Localização</h3>
+                <p>{selectedConversation?.propertyLocation || 'Não informado'}</p>
               </Card>
               
               <Card className="p-4">
-                <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Raça</h3>
-                <p>{selectedConversation?.petBreed || 'Não informado'}</p>
+                <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Valor de Interesse</h3>
+                <p>{selectedConversation?.priceRange || 'Não informado'}</p>
               </Card>
             </TabsContent>
           </Tabs>

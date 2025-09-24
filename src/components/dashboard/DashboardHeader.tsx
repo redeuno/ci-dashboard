@@ -12,8 +12,12 @@ const DashboardHeader = () => {
   return (
     <header className="bg-black dark:bg-gray-800 text-white shadow-md transition-colors duration-300">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <Building className="h-8 w-8" style={{color: 'hsl(80, 100%, 50%)'}} />
+        <div className="flex items-center gap-3">
+          <img 
+            src="/lovable-uploads/ci-logo.png" 
+            alt="Comunidade Imobiliária Logo" 
+            className="h-10 w-10 object-contain" 
+          />
           <h1 className="text-2xl font-bold">Comunidade Imobiliária</h1>
         </div>
         <div className="flex items-center gap-4">
