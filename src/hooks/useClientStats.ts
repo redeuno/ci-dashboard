@@ -17,105 +17,112 @@ export function useClientStats() {
   const refetchStats = useCallback(async () => {
     try {
       setLoading(true);
-      
-      // Fetch total clients
+
+      // Get total clients
       const { count: totalClients } = await supabase
         .from('dados_cliente')
-        .select('*', { count: 'exact' });
+        .select('*', { count: 'exact', head: true });
 
-      // Fetch total contracts (count all clients as potential contracts)
+      // Get total appointments (contratos)
       const { count: totalContracts } = await supabase
-        .from('dados_cliente')
-        .select('*', { count: 'exact' });
+        .from('agendamentos')
+        .select('*', { count: 'exact', head: true });
 
-      // Fetch new clients this month (from 1st of current month to today)
-      const today = new Date();
-      const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-      const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-      
+      // Get new clients this month
+      const startOfMonth = new Date();
+      startOfMonth.setDate(1);
+      startOfMonth.setHours(0, 0, 0, 0);
+
       const { count: newClientsThisMonth } = await supabase
         .from('dados_cliente')
-        .select('*', { count: 'exact' })
-        .gte('created_at', firstDayOfMonth.toISOString())
-        .lte('created_at', today.toISOString());
+        .select('*', { count: 'exact', head: true })
+        .gte('created_at', startOfMonth.toISOString());
 
-      // Fetch monthly growth data
+      // Get monthly growth data
       const currentYear = new Date().getFullYear();
-      const monthlyGrowthData = [];
+      const { data: monthlyData } = await supabase
+        .from('dados_cliente')
+        .select('created_at')
+        .gte('created_at', `${currentYear}-01-01`)
+        .lte('created_at', `${currentYear}-12-31`);
+
+      // Process monthly growth
+      const monthlyGrowth = [];
+      const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
       
-      for (let month = 0; month < 12; month++) {
-        const startOfMonth = new Date(currentYear, month, 1);
-        const endOfMonth = new Date(currentYear, month + 1, 0);
+      for (let i = 0; i < 12; i++) {
+        const monthStart = new Date(currentYear, i, 1);
+        const monthEnd = new Date(currentYear, i + 1, 0);
         
-        const { count } = await supabase
-          .from('dados_cliente')
-          .select('*', { count: 'exact' })
-          .gte('created_at', startOfMonth.toISOString())
-          .lte('created_at', endOfMonth.toISOString());
+        const clientsInMonth = monthlyData?.filter(client => {
+          const createdAt = new Date(client.created_at);
+          return createdAt >= monthStart && createdAt <= monthEnd;
+        }).length || 0;
         
-        const monthNames = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
-        monthlyGrowthData.push({
-          month: monthNames[month],
-          clients: count || 0
+        monthlyGrowth.push({
+          month: months[i],
+          clients: clientsInMonth
         });
       }
 
-      // Fetch service types data (based on cities for real estate)
-      const { data: serviceData } = await supabase
-        .from('dados_cliente')
-        .select('cidade')
-        .not('cidade', 'is', null);
+      // Get service types from appointments
+      const { data: appointmentsData } = await supabase
+        .from('agendamentos')
+        .select('servico')
+        .not('servico', 'is', null);
 
-      const serviceCounts = {};
-      serviceData?.forEach(client => {
-        if (client.cidade) {
-          serviceCounts[client.cidade] = (serviceCounts[client.cidade] || 0) + 1;
+      // Count appointments by service type
+      const serviceCount: { [key: string]: number } = {};
+      appointmentsData?.forEach(appointment => {
+        if (appointment.servico) {
+          const service = appointment.servico.toLowerCase();
+          if (service.includes('venda')) {
+            serviceCount['Venda'] = (serviceCount['Venda'] || 0) + 1;
+          } else if (service.includes('locação') || service.includes('locacao')) {
+            serviceCount['Locação'] = (serviceCount['Locação'] || 0) + 1;
+          } else if (service.includes('mentoria')) {
+            serviceCount['Mentoria'] = (serviceCount['Mentoria'] || 0) + 1;
+          } else if (service.includes('consultoria')) {
+            serviceCount['Consultoria'] = (serviceCount['Consultoria'] || 0) + 1;
+          } else if (service.includes('avaliação') || service.includes('avaliacao')) {
+            serviceCount['Avaliação'] = (serviceCount['Avaliação'] || 0) + 1;
+          } else {
+            serviceCount['Outros'] = (serviceCount['Outros'] || 0) + 1;
+          }
         }
       });
 
-      const colors = [
-        '#8B5CF6', '#EC4899', '#10B981', '#3B82F6', 
-        '#F59E0B', '#EF4444', '#6366F1', '#14B8A6',
-        '#F97316', '#8B5CF6', '#06B6D4', '#D946EF'
-      ];
+      // Create service types array with proper colors
+      const colors = ['#8B5CF6', '#F59E0B', '#10B981', '#EF4444', '#3B82F6', '#6B7280'];
+      const serviceTypes = Object.entries(serviceCount)
+        .map(([service, count], index) => ({
+          name: service,
+          value: count,
+          color: colors[index] || '#6B7280'
+        }));
 
-      const serviceTypes = Object.entries(serviceCounts).map(([name, value], index) => ({
-        name,
-        value,
-        color: colors[index % colors.length]
-      }));
-
-      // Fetch recent clients
-      const { data: recentClientsData } = await supabase
+      // Get recent clients
+      const { data: recentClients } = await supabase
         .from('dados_cliente')
-        .select('id, nome, telefone, cidade, created_at')
+        .select('nome, email, telefone, cidade, created_at')
         .order('created_at', { ascending: false })
         .limit(5);
 
-      const recentClients = recentClientsData?.map(client => ({
-        id: client.id,
-        name: client.nome,
-        phone: client.telefone,
-        city: client.cidade || 'Não informado',
-        lastVisit: new Date(client.created_at).toLocaleDateString('pt-BR')
-      })) || [];
-
-      // Update stats
       setStats({
         totalClients: totalClients || 0,
         totalContracts: totalContracts || 0,
         newClientsThisMonth: newClientsThisMonth || 0,
-        monthlyGrowth: monthlyGrowthData,
+        monthlyGrowth,
         serviceTypes,
-        recentClients
+        recentClients: recentClients || []
       });
 
     } catch (error) {
-      console.error('Error fetching stats:', error);
+      console.error('Error fetching client stats:', error);
       toast({
-        title: "Erro ao atualizar estatísticas",
-        description: "Ocorreu um erro ao atualizar as estatísticas.",
-        variant: "destructive"
+        title: "Erro ao carregar estatísticas",
+        description: "Não foi possível carregar as estatísticas dos clientes.",
+        variant: "destructive",
       });
     } finally {
       setLoading(false);

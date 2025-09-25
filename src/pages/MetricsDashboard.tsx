@@ -41,22 +41,18 @@ const MetricsDashboard = () => {
         { month: 'Dez', clients: 0 }
       ];
   
-  // Use service types data from the API instead of hardcoded data
+  // Use service types data from the API
   const serviceTypesData = stats.serviceTypes?.length > 0 
     ? stats.serviceTypes 
-    : [
-        { name: 'Venda', value: 0, color: '#8B5CF6' },
-        { name: 'Locação', value: 0, color: '#F59E0B' },
-        { name: 'Mentoria', value: 0, color: '#10B981' }
-      ];
+    : [];
 
-  const realEstateServicesData = [
-    { name: 'Mentoria CI', value: 0 },
-    { name: 'Venda CI', value: 0 },
-    { name: 'Consultoria', value: 0 },
-    { name: 'Avaliação', value: 0 },
-    { name: 'Documentação', value: 0 },
-  ];
+  // Create real estate services data based on actual service types
+  const realEstateServicesData = stats.serviceTypes?.length > 0
+    ? stats.serviceTypes.map(service => ({
+        name: service.name,
+        value: service.value
+      }))
+    : [];
   
       // Use real client data from the database
       const recentClientsData = stats.recentClients?.length > 0

@@ -28,26 +28,27 @@ const AssinaturasChart: React.FC<AssinaturasChartProps> = ({ data, loading = fal
           <div className="h-80 flex items-center justify-center">
             <div className="h-12 w-12 border-4 border-t-transparent border-gray-400 rounded-full animate-spin"></div>
           </div>
-        ) : data && data.length > 0 ? (
+        ) : data && data.length > 0 && data.some(item => item.value > 0) ? (
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
-                  data={data}
+                  data={data.filter(item => item.value > 0)}
                   cx="50%"
                   cy="50%"
                   labelLine={false}
                   label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                  outerRadius={80}
+                  outerRadius={100}
+                  innerRadius={40}
                   fill="#8884d8"
                   dataKey="value"
                 >
-                  {data.map((entry, index) => (
+                  {data.filter(item => item.value > 0).map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
                 <Tooltip 
-                  formatter={(value, name) => [`${value} membros`, name]}
+                  formatter={(value, name) => [`${value} serviços`, name]}
                   contentStyle={{
                     backgroundColor: 'rgba(255, 255, 255, 0.9)',
                     borderRadius: '8px',
@@ -72,8 +73,12 @@ const AssinaturasChart: React.FC<AssinaturasChartProps> = ({ data, loading = fal
             </div>
           </div>
         ) : (
-          <div className="h-80 flex items-center justify-center text-gray-500">
-            Nenhum dado disponível
+          <div className="h-80 flex flex-col items-center justify-center text-gray-500">
+            <div className="text-center">
+              <div className="text-4xl mb-4">📊</div>
+              <p className="text-lg font-medium mb-2">Nenhum serviço encontrado</p>
+              <p className="text-sm">Os dados aparecerão quando houver agendamentos cadastrados</p>
+            </div>
           </div>
         )}
       </CardContent>
