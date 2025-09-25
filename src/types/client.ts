@@ -16,4 +16,7 @@ export interface Contact {
   cidade?: string | null;
   sessionid?: string | null;
   instancia?: string | null;
+  area_interesse?: string | null;
+  nivel_experiencia?: string | null;
+  tipo_curso_desejado?: string | null;
 }

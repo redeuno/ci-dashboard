@@ -151,6 +151,7 @@ export type Database = {
       }
       dados_cliente: {
         Row: {
+          area_interesse: string | null
           asaas_customer_id: string | null
           cep: string | null
           cidade: string | null
@@ -161,13 +162,16 @@ export type Database = {
           endereco: string | null
           id: number
           instancia: string | null
+          nivel_experiencia: string | null
           nome: string | null
           notes: string | null
           payments: Json | null
           sessionid: string | null
           telefone: string | null
+          tipo_curso_desejado: string | null
         }
         Insert: {
+          area_interesse?: string | null
           asaas_customer_id?: string | null
           cep?: string | null
           cidade?: string | null
@@ -178,13 +182,16 @@ export type Database = {
           endereco?: string | null
           id?: number
           instancia?: string | null
+          nivel_experiencia?: string | null
           nome?: string | null
           notes?: string | null
           payments?: Json | null
           sessionid?: string | null
           telefone?: string | null
+          tipo_curso_desejado?: string | null
         }
         Update: {
+          area_interesse?: string | null
           asaas_customer_id?: string | null
           cep?: string | null
           cidade?: string | null
@@ -195,11 +202,13 @@ export type Database = {
           endereco?: string | null
           id?: number
           instancia?: string | null
+          nivel_experiencia?: string | null
           nome?: string | null
           notes?: string | null
           payments?: Json | null
           sessionid?: string | null
           telefone?: string | null
+          tipo_curso_desejado?: string | null
         }
         Relationships: []
       }

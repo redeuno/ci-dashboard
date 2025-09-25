@@ -6,9 +6,9 @@ export interface Client {
   email: string;
   sessionid: string;
   cpf_cnpj?: string;
-  tipo_imovel?: string;
-  localizacao_imovel?: string;
-  faixa_preco?: string;
+  area_interesse?: string;
+  nivel_experiencia?: string;
+  tipo_curso_desejado?: string;
 }
 
 export interface ChatMessage {
