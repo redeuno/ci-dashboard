@@ -152,9 +152,9 @@ const Index = () => {
           >
             <div className="flex justify-center mb-4 animate-slide-up" style={{ animationDelay: '0.1s' }}>
               <img 
-                src="/lovable-uploads/7a96682a-47a3-4ed0-8036-8a31ad28cb4b.png" 
+                src="/lovable-uploads/ci-logo-full.png" 
                 alt="Comunidade Imobiliária Logo" 
-                className="h-20 w-auto object-contain" 
+                className="h-24 w-auto object-contain" 
               />
             </div>
             <h1 className="text-2xl font-bold text-white text-center mb-2 animate-slide-up" style={{ animationDelay: '0.2s' }}>

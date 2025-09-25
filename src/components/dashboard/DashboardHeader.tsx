@@ -14,7 +14,7 @@ const DashboardHeader = () => {
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex items-center gap-3">
           <img 
-            src="/lovable-uploads/bc852a02-f2b9-4981-a30c-7c19e7e2829c.png" 
+            src="/lovable-uploads/ci-logo-white.png" 
             alt="Comunidade Imobiliária Logo" 
             className="h-12 w-auto object-contain" 
           />
