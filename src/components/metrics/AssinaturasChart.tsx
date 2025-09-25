@@ -76,7 +76,7 @@ const AssinaturasChart: React.FC<AssinaturasChartProps> = ({ data, loading = fal
           <div className="h-80 flex flex-col items-center justify-center text-gray-500">
             <div className="text-center">
               <div className="text-4xl mb-4">📊</div>
-              <p className="text-lg font-medium mb-2">Nenhum serviço encontrado</p>
+              <p className="text-lg font-medium mb-2">Ainda não temos dados para esse campo</p>
               <p className="text-sm">Os dados aparecerão quando houver agendamentos cadastrados</p>
             </div>
           </div>

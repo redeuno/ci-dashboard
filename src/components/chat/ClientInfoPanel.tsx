@@ -37,7 +37,7 @@ const ClientInfoPanel = ({ selectedChat, selectedConversation }: ClientInfoPanel
           <Tabs defaultValue="info">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="info">Informações</TabsTrigger>
-              <TabsTrigger value="property">Imóvel</TabsTrigger>
+              <TabsTrigger value="interest">Interesse</TabsTrigger>
             </TabsList>
             
             <TabsContent value="info" className="mt-4 space-y-4">
@@ -62,20 +62,20 @@ const ClientInfoPanel = ({ selectedChat, selectedConversation }: ClientInfoPanel
               </Card>
             </TabsContent>
             
-            <TabsContent value="property" className="mt-4 space-y-4">
+            <TabsContent value="interest" className="mt-4 space-y-4">
               <Card className="p-4">
-                <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Tipo de Imóvel</h3>
-                <p>{selectedConversation?.propertyType || 'Não informado'}</p>
+                <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Área de Interesse</h3>
+                <p>{selectedConversation?.propertyType || 'Ainda não temos dados para esse campo'}</p>
               </Card>
               
               <Card className="p-4">
-                <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Localização</h3>
-                <p>{selectedConversation?.propertyLocation || 'Não informado'}</p>
+                <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Nível de Experiência</h3>
+                <p>{selectedConversation?.propertyLocation || 'Ainda não temos dados para esse campo'}</p>
               </Card>
               
               <Card className="p-4">
-                <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Valor de Interesse</h3>
-                <p>{selectedConversation?.priceRange || 'Não informado'}</p>
+                <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Tipo de Curso Desejado</h3>
+                <p>{selectedConversation?.priceRange || 'Ainda não temos dados para esse campo'}</p>
               </Card>
             </TabsContent>
           </Tabs>

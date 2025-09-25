@@ -57,7 +57,7 @@ const RecentClientsTable: React.FC<RecentClientsTableProps> = ({ clients, loadin
                 <TableRow>
                   <TableHead>Nome</TableHead>
                   <TableHead>Telefone</TableHead>
-                  <TableHead>Contratos</TableHead>
+                  <TableHead>Assinaturas</TableHead>
                   <TableHead>Cadastro</TableHead>
                 </TableRow>
               </TableHeader>
@@ -75,7 +75,7 @@ const RecentClientsTable: React.FC<RecentClientsTableProps> = ({ clients, loadin
                       <TableCell>{client.phone}</TableCell>
                       <TableCell>
                         <Badge variant="outline" className="bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 hover:bg-purple-200 dark:hover:bg-purple-800/40">
-                          {client.contracts} {client.contracts !== 1 ? 'contratos' : 'contrato'}
+                          {client.contracts} {client.contracts !== 1 ? 'assinaturas' : 'assinatura'}
                         </Badge>
                       </TableCell>
                       <TableCell>{client.lastVisit}</TableCell>

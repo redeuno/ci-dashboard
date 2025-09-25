@@ -69,14 +69,14 @@ const MetricsDashboard = () => {
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl font-bold flex items-center gap-2 text-gray-800 dark:text-white">
             <LineChart className="h-6 w-6 text-black dark:text-lime-400" />
-            Dashboard de Métricas - Comunidade Imobiliária
+            Dashboard de Métricas - Comunidade Educacional
           </h2>
         </div>
         
         {/* Estatísticas em Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <StatCard 
-            title="Total de Clientes"
+            title="Total de Alunos"
             value={stats.totalClients}
             icon={<Users />}
             trend={`Aumento de ${Math.round((stats.newClientsThisMonth / (stats.totalClients - stats.newClientsThisMonth || 1)) * 100)}% este mês`}
@@ -86,17 +86,17 @@ const MetricsDashboard = () => {
           />
           
           <StatCard 
-            title="Total de Contratos"
+            title="Total de Assinaturas"
             value={stats.totalContracts}
             icon={<Building />}
-            trend={`Média de ${(stats.totalContracts / (stats.totalClients || 1)).toFixed(1)} contratos por cliente`}
+            trend={`Média de ${(stats.totalContracts / (stats.totalClients || 1)).toFixed(1)} assinaturas por aluno`}
             loading={loading}
             iconBgClass="bg-pink-100 dark:bg-pink-900/30"
             iconTextClass="text-pink-600 dark:text-pink-400"
           />
           
           <StatCard 
-            title="Novos Clientes (Mês)"
+            title="Novos Alunos (Mês)"
             value={stats.newClientsThisMonth}
             icon={<Smartphone />}
             trend={`+${stats.newClientsThisMonth} comparado ao mês anterior`}
@@ -109,7 +109,15 @@ const MetricsDashboard = () => {
         {/* Gráficos e Tabelas */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           <ClientGrowthChart data={monthlyCustomersData} loading={loading} />
-          <AssinaturasChart data={serviceTypesData} loading={loading} />
+          <AssinaturasChart 
+            data={serviceTypesData.length > 0 ? serviceTypesData : [
+              { name: 'Cursos', value: 0, color: '#8B5CF6' },
+              { name: 'Mentorias', value: 0, color: '#F59E0B' },
+              { name: 'Consultorias', value: 0, color: '#10B981' },
+              { name: 'Ferramentas IA', value: 0, color: '#EF4444' }
+            ]} 
+            loading={loading} 
+          />
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

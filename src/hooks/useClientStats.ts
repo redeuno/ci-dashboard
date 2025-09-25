@@ -71,21 +71,21 @@ export function useClientStats() {
         .select('servico')
         .not('servico', 'is', null);
 
-      // Count appointments by service type
+      // Count appointments by service type (educational context)
       const serviceCount: { [key: string]: number } = {};
       appointmentsData?.forEach(appointment => {
         if (appointment.servico) {
           const service = appointment.servico.toLowerCase();
-          if (service.includes('venda')) {
-            serviceCount['Venda'] = (serviceCount['Venda'] || 0) + 1;
-          } else if (service.includes('locação') || service.includes('locacao')) {
-            serviceCount['Locação'] = (serviceCount['Locação'] || 0) + 1;
+          if (service.includes('curso')) {
+            serviceCount['Cursos'] = (serviceCount['Cursos'] || 0) + 1;
           } else if (service.includes('mentoria')) {
-            serviceCount['Mentoria'] = (serviceCount['Mentoria'] || 0) + 1;
+            serviceCount['Mentorias'] = (serviceCount['Mentorias'] || 0) + 1;
           } else if (service.includes('consultoria')) {
-            serviceCount['Consultoria'] = (serviceCount['Consultoria'] || 0) + 1;
-          } else if (service.includes('avaliação') || service.includes('avaliacao')) {
-            serviceCount['Avaliação'] = (serviceCount['Avaliação'] || 0) + 1;
+            serviceCount['Consultorias'] = (serviceCount['Consultorias'] || 0) + 1;
+          } else if (service.includes('ferramenta') || service.includes('ia') || service.includes('ai')) {
+            serviceCount['Ferramentas IA'] = (serviceCount['Ferramentas IA'] || 0) + 1;
+          } else if (service.includes('treinamento')) {
+            serviceCount['Treinamentos'] = (serviceCount['Treinamentos'] || 0) + 1;
           } else {
             serviceCount['Outros'] = (serviceCount['Outros'] || 0) + 1;
           }
@@ -101,12 +101,31 @@ export function useClientStats() {
           color: colors[index] || '#6B7280'
         }));
 
-      // Get recent clients
-      const { data: recentClients } = await supabase
+      // Get recent clients with correct format
+      const { data: recentClientsData } = await supabase
         .from('dados_cliente')
-        .select('nome, email, telefone, cidade, created_at')
+        .select('id, nome, telefone, created_at')
         .order('created_at', { ascending: false })
         .limit(5);
+
+      // Count appointments per client
+      const recentClients = [];
+      if (recentClientsData) {
+        for (const client of recentClientsData) {
+          const { count: appointmentCount } = await supabase
+            .from('agendamentos')
+            .select('*', { count: 'exact', head: true })
+            .eq('telefone', client.telefone);
+
+          recentClients.push({
+            id: client.id,
+            name: client.nome || 'Nome não informado',
+            phone: client.telefone || 'Telefone não informado',
+            contracts: appointmentCount || 0,
+            lastVisit: client.created_at ? new Date(client.created_at).toLocaleDateString('pt-BR') : 'Data não informada'
+          });
+        }
+      }
 
       setStats({
         totalClients: totalClients || 0,
@@ -114,7 +133,7 @@ export function useClientStats() {
         newClientsThisMonth: newClientsThisMonth || 0,
         monthlyGrowth,
         serviceTypes,
-        recentClients: recentClients || []
+        recentClients
       });
 
     } catch (error) {
